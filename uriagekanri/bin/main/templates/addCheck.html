@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<p>住所録管理システム：住所録登録</p>
+<form class="item" th:action="@{/creat}" th:object="${dataRequest}" th:method="post">
+<dl>
+		<dt>顧客*：</dt>
+		<dd th:text="*{nameid}"></dd>
+
+		<dt>受注日：</dt>
+		<dd th:text="*{orderDate}"></dd>
+
+		<dt>S番号：</dt>
+		<dd th:text="*{sNumber}"></dd>
+
+		<dt>件名*:</dt>
+		<dd th:text="*{subTitle}"></dd>
+
+		<dt>数量：</dt>
+		<dd th:text="*{items}"></dd>
+
+		<dt>納入指定日：</dt>
+		<dd th:text="*{deliveryDesignatedDate}"></dd>
+
+		<dt>納入日</dt>
+		<dd th:text="*{deliveryDate}"></dd>
+
+		<dt>見積金額：</dt>
+		<dd th:text="*{estimatedAmount}"></dd>
+
+		<dt>受注金額：</dt>
+		<dd th:text="*{orderAmount}"></dd>
+
+		<dt>ステータス：</dt>
+		<dd><!-- 選択肢 --></dd>
+
+		<dt>備考：</dt>
+		<dd th:text="*{remark}"></dd>
+</dl>
+<a th:href="@{/add}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
+</form>
+</body>
+</html>

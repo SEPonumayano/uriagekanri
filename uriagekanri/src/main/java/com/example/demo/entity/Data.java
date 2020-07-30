@@ -106,38 +106,38 @@ public class Data implements Serializable{
 
 	//納入日
 	@Column(name = "deliveryDate")
-	private String dekiveryDate;
+	private String deliveryDate;
 
 
-	public String getDekiveryDate() {
-		return dekiveryDate;
+	public String getDeliveryDate() {
+		return deliveryDate;
 	}
 
-	public void setDekiveryDate(String dekiveryDate) {
-		this.dekiveryDate = dekiveryDate;
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 	//見積金額
 	@Column(name = "estimatedAmount")
-	private int estimatedAmount;
+	private String estimatedAmount;
 
-	public int getEstimatedAmount() {
+	public String getEstimatedAmount() {
 		return estimatedAmount;
 	}
 
-	public void setEstimatedAmount(int estimatedAmount) {
+	public void setEstimatedAmount(String estimatedAmount) {
 		this.estimatedAmount = estimatedAmount;
 	}
 
 	//受注金額
 	@Column(name = "orderAmount")
-	private int orderAmount;
+	private String orderAmount;
 
-	public int getOrderAmount() {
+	public String getOrderAmount() {
 		return orderAmount;
 	}
 
-	public void setOrderAmount(int orderAmount) {
+	public void setOrderAmount(String orderAmount) {
 		this.orderAmount = orderAmount;
 	}
 

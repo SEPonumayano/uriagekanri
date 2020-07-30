@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import java.io.Serializable;
 
+
 public class DataRequest implements Serializable{
 
 	private Long id;
@@ -15,6 +16,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//顧客名ID
 	private String nameid;
 
 	public String getNameid() {
@@ -26,6 +28,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//受注日
 	private String orderDate;
 
 	public String getOrderDate() {
@@ -37,6 +40,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//S番号
 	private String sNumber;
 
 	public String getsNumber() {
@@ -48,6 +52,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//件名
 	private String subTitle;
 
 	public String getSubTitle() {
@@ -59,6 +64,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//数量
 	private String items;
 
 	public String getItems() {
@@ -70,6 +76,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//納入指定日
 	private String deliveryDesignatedDate;
 
 	public String getDeliveryDesignatedDate() {
@@ -80,39 +87,44 @@ public class DataRequest implements Serializable{
 		this.deliveryDesignatedDate = deliveryDesignatedDate;
 	}
 
-	private String dekiveryDate;
 
+	//納入日
+	private String deliveryDate;
 
-	public String getDekiveryDate() {
-		return dekiveryDate;
+	public String getDeliveryDate() {
+		return deliveryDate;
 	}
 
-	public void setDekiveryDate(String dekiveryDate) {
-		this.dekiveryDate = dekiveryDate;
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 
 
-	private int estimatedAmount;
+	//見積金額
+	private String estimatedAmount;
 
-	public int getEstimatedAmount() {
+	public String getEstimatedAmount() {
 		return estimatedAmount;
 	}
 
-	public void setEstimatedAmount(int estimatedAmount) {
+	public void setEstimatedAmount(String estimatedAmount) {
 		this.estimatedAmount = estimatedAmount;
 	}
 
 
-	private int orderAmount;
+	//受注金額
+	private String orderAmount;
 
-	public int getOrderAmount() {
+	public String getOrderAmount() {
 		return orderAmount;
 	}
 
-	public void setOrderAmount(int orderAmount) {
+	public void setOrderAmount(String orderAmount) {
 		this.orderAmount = orderAmount;
 	}
 
+
+	//ステータス
 	private int statusid;
 
 	public int getStatusid() {
@@ -124,6 +136,7 @@ public class DataRequest implements Serializable{
 	}
 
 
+	//備考
 	private String remark;
 
 	public String getRemark() {
@@ -133,7 +146,6 @@ public class DataRequest implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
 
 
 }

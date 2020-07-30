@@ -18,6 +18,7 @@ public class DataService {
 
 	//登録確認
 	public void create(DataRequest dataRequest) {
+
 		Data user = new Data();
 		user.setNameid(dataRequest.getNameid());
 		user.setOrderDate(dataRequest.getOrderDate());
@@ -25,7 +26,7 @@ public class DataService {
 		user.setSubTitle(dataRequest.getSubTitle());
 		user.setItems(dataRequest.getItems());
 		user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
-		user.setDekiveryDate(dataRequest.getDekiveryDate());
+		user.setDeliveryDate(dataRequest.getDeliveryDate());
 		user.setEstimatedAmount(dataRequest.getEstimatedAmount());
 		user.setOrderAmount(dataRequest.getOrderAmount());
 		user.setStatusid(dataRequest.getStatusid());
