@@ -32,15 +32,15 @@ public class Data implements Serializable{
 	}
 
 	//顧客名
-	@Column(name = "name")
-	private String name;
+	@Column(name = "nameid")
+	private String nameid;
 
-	public String getName() {
-		return name;
+	public String getNameid() {
+		return nameid;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNameid(String nameid) {
+		this.nameid = nameid;
 	}
 
 	//受注日
@@ -139,6 +139,19 @@ public class Data implements Serializable{
 
 	public void setOrderAmount(int orderAmount) {
 		this.orderAmount = orderAmount;
+	}
+
+
+	//ステータス
+	@Column(name = "statusid")
+	private int statusid;
+
+	public int getStatusid() {
+		return statusid;
+	}
+
+	public void setStatusid(int statusid) {
+		this.statusid = statusid;
 	}
 
 	//備考

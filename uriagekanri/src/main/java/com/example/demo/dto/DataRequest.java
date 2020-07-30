@@ -15,14 +15,14 @@ public class DataRequest implements Serializable{
 	}
 
 
-	private String name;
+	private String nameid;
 
-	public String getName() {
-		return name;
+	public String getNameid() {
+		return nameid;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNameid(String nameid) {
+		this.nameid = nameid;
 	}
 
 
@@ -111,6 +111,16 @@ public class DataRequest implements Serializable{
 
 	public void setOrderAmount(int orderAmount) {
 		this.orderAmount = orderAmount;
+	}
+
+	private int statusid;
+
+	public int getStatusid() {
+		return statusid;
+	}
+
+	public void setStatusid(int statusid) {
+		this.statusid = statusid;
 	}
 
 
