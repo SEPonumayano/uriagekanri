@@ -78,25 +78,25 @@ public class DataRequest implements Serializable{
 
 
 	//納入指定日
-	private String deliveryDesignatedDate;
+	private Date deliveryDesignatedDate;
 
-	public String getDeliveryDesignatedDate() {
+	public Date getDeliveryDesignatedDate() {
 		return deliveryDesignatedDate;
 	}
 
-	public void setDeliveryDesignatedDate(String deliveryDesignatedDate) {
+	public void setDeliveryDesignatedDate(Date deliveryDesignatedDate) {
 		this.deliveryDesignatedDate = deliveryDesignatedDate;
 	}
 
 
 	//納入日
-	private String deliveryDate;
+	private Date deliveryDate;
 
-	public String getDeliveryDate() {
+	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
 
-	public void setDeliveryDate(String deliveryDate) {
+	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 

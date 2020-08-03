@@ -45,7 +45,7 @@ public class Data implements Serializable{
 	}
 
 	//受注日
-	@Column(name = "orderDate")
+	@Column(name = "order_date")
 	private Date orderDate;
 
 	public Date getOrderDate() {
@@ -58,7 +58,7 @@ public class Data implements Serializable{
 
 	//S番号
 	//名前
-	@Column(name = "sNumber")
+	@Column(name = "snumber")
 	private String sNumber;
 
 	public String getsNumber() {
@@ -70,7 +70,7 @@ public class Data implements Serializable{
 	}
 
 	//件名
-	@Column(name = "subTitle")
+	@Column(name = "subtitle")
 	private String subTitle;
 
 	public String getSubTitle() {
@@ -94,32 +94,32 @@ public class Data implements Serializable{
 	}
 
 	//納入指定日
-	@Column(name = "deliveryDesignatedDate")
-	private String deliveryDesignatedDate;
+	@Column(name = "delivery_Designated_Date")
+	private Date deliveryDesignatedDate;
 
-	public String getDeliveryDesignatedDate() {
+	public Date getDeliveryDesignatedDate() {
 		return deliveryDesignatedDate;
 	}
 
-	public void setDeliveryDesignatedDate(String deliveryDesignatedDate) {
+	public void setDeliveryDesignatedDate(Date deliveryDesignatedDate) {
 		this.deliveryDesignatedDate = deliveryDesignatedDate;
 	}
 
 	//納入日
-	@Column(name = "deliveryDate")
-	private String deliveryDate;
+	@Column(name = "delivery_date")
+	private Date deliveryDate;
 
 
-	public String getDeliveryDate() {
+	public Date getDeliveryDate() {
 		return deliveryDate;
 	}
 
-	public void setDeliveryDate(String deliveryDate) {
+	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
 	}
 
 	//見積金額
-	@Column(name = "estimatedAmount")
+	@Column(name = "estimated_amount")
 	private String estimatedAmount;
 
 	public String getEstimatedAmount() {
@@ -131,7 +131,7 @@ public class Data implements Serializable{
 	}
 
 	//受注金額
-	@Column(name = "orderAmount")
+	@Column(name = "order_amount")
 	private String orderAmount;
 
 	public String getOrderAmount() {

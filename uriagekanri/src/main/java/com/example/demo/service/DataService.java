@@ -34,4 +34,27 @@ public class DataService {
 
 	}
 
+	//DB登録
+		public void creat(DataRequest dataRequest) {
+			dataRepository.save(Order(dataRequest));
+		}
+
+	//登録データ
+		public Data Order(DataRequest dataRequest) {
+			Data user =new Data();
+			user.setNameid(dataRequest.getNameid());
+			user.setOrderDate(dataRequest.getOrderDate());
+			user.setsNumber(dataRequest.getsNumber());
+			user.setSubTitle(dataRequest.getSubTitle());
+			user.setItems(dataRequest.getItems());
+			user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
+			user.setDeliveryDate(dataRequest.getDeliveryDate());
+			user.setEstimatedAmount(dataRequest.getEstimatedAmount());
+			user.setOrderAmount(dataRequest.getOrderAmount());
+			user.setStatusid(dataRequest.getStatusid());
+			user.setRemark(dataRequest.getRemark());
+
+			return user;
+		}
+
 }

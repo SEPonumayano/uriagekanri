@@ -12,8 +12,7 @@
 		<dd th:text="*{nameid}"></dd>
 
 		<dt>受注日：</dt>
-		<dd th:value=order></dd>
-		<!-- <dd th:text="*{orderDate}"></dd> -->
+		<dd th:text="*{orderDate}"></dd>
 
 		<dt>S番号：</dt>
 		<dd th:text="*{sNumber}"></dd>
@@ -37,11 +36,25 @@
 		<dd th:text="*{orderAmount}"></dd>
 
 		<dt>ステータス：</dt>
-		<dd><!-- 選択肢 --></dd>
+		<dd th:text="*{statusid}"></dd>
 
 		<dt>備考：</dt>
 		<dd th:text="*{remark}"></dd>
 </dl>
+
+<input type="hidden" name="nameid" th:field="*{nameid}">
+<input type="hidden" name="orderDate" th:field="*{orderDate}">
+<input type="hidden" name="sNumber" th:field="*{sNumber}">
+<input type="hidden" name="subTitle" th:field="*{subTitle}">
+<input type="hidden" name="items" th:field="*{items}">
+<input type="hidden" name="deleveryDesignatedDate" th:field="*{deliveryDesignatedDate}">
+<input type="hidden" name="deliveryDate" th:field="*{deliveryDate}">
+<input type="hidden" name="estimatedAmount" th:field="*{estimatedAmount}">
+<input type="hidden" name="orderAmount" th:field="*{orderAmount}">
+<input type="hidden" name="statusid" th:field="*{statusid}">
+<input type="hidden" name="remark" th:field="*{remark}">
+
+<input type="submit" value="登録" style="width:250px;height:20px;">
 <a th:href="@{/add}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
 </form>
 </body>

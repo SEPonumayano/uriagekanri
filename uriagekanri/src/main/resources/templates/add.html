@@ -14,7 +14,7 @@
 		</select></dd>
 
 		<dt>受注日：</dt>
-		<dd><input type="date" name="ordersDate"></dd>
+		<dd><input type="date" name="orderDate"></dd>
 
 		<dt>S番号：</dt>
 		<dd><input type="text" name="sNumber"></dd>
@@ -38,7 +38,9 @@
 		<dd><input type="number" name="orderAmount"></dd>
 
 		<dt>ステータス：</dt>
-		<dd><!-- 選択肢 --></dd>
+		<dd><select id="selectedSt" name="statusid">
+		<option th:each="item:${selectSt}" th:value="${item.value}"  th:text="${item.key}"></option>
+		</select></dd>
 
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40"></textarea></dd>
