@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -58,8 +59,11 @@ public class DataController {
 	//登録確認ページ
 	@RequestMapping(value="/addCheck" ,method=RequestMethod.POST)
 	public String addCheck(@ModelAttribute DataRequest dataRequest, Model model) {
+		Date order=dataRequest.getOrderDate();
 
 		model.addAttribute("DataRequest",  dataRequest);
+		model.addAttribute("order",  order);
+
 		return "/addCheck";
 	}
 

@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,14 +46,14 @@ public class Data implements Serializable{
 
 	//受注日
 	@Column(name = "orderDate")
-	private String orderDate;
+	private Date orderDate;
 
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(String orderDate) {
-		this.orderDate = orderDate;
+	public void setOrderDate(Date date) {
+		this.orderDate = date;
 	}
 
 	//S番号

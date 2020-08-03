@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 
 public class DataRequest implements Serializable{
@@ -29,13 +30,13 @@ public class DataRequest implements Serializable{
 
 
 	//受注日
-	private String orderDate;
+	private Date orderDate;
 
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
