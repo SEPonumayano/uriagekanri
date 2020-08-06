@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<p>製造部売上管理システム：案件編集</p>
+<form class="item" th:action="@{/list}" th:object="${dataRequest}"
+		th:method="post">
+<dl>
+		<dt>顧客*：</dt>
+		<dd th:text="*{nameid}"></dd>
+
+		<dt>受注日：</dt>
+		<dd><input type="date" name="orderDate" th:field="*{orderDate}"></dd>
+
+		<dt>S番号：</dt>
+		<dd><input type="text" name="sNumber" th:field="*{sNumber}"></dd>
+
+		<dt>件名*:</dt>
+		<dd><input type="text" name="subTitle" th:field="*{subTitle}"></dd>
+
+		<dt>数量：</dt>
+		<dd><input type="text" name="items" th:field="*{items}"></dd>
+
+		<dt>納入指定日：</dt>
+		<dd><input type="date" name="deliveryDesignatedDate" th:field="*{deliveryDesignatedDate}"></dd>
+
+		<dt>納入日</dt>
+		<dd><input type="date" name="deliveryDate" th:field="*{deliveryDate}"></dd>
+
+		<dt>見積金額：</dt>
+		  <dd><input type="number" name="estimatedAmount" th:field="*{estimatedAmount}"></dd>
+
+		<dt>受注金額：</dt>
+		<dd><input type="number" name="orderAmount" th:field="*{orderAmount}"></dd>
+
+		<dt>ステータス：</dt>
+		<dd><select id="selectedSt" name="statusid">
+		<option th:each="item:${selectSt}" th:value="${item.value}"  th:text="${item.key}"></option>
+		</select></dd>
+
+		<dt>備考：</dt>
+		<dd><textarea name="remark" rows="4" cols="40" th:field="*{remark}"></textarea></dd>
+</dl>
+<a th:href="@{/list}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
+</form></body>
+</html>

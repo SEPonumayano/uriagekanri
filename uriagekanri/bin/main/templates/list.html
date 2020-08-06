@@ -13,5 +13,11 @@
 		<a th:href="@{/add}"><button type="button" style="width:200px">新規登録できるよ</button></a>
 	</div>
 	</div>
+<br/>
+<p>ID=1の編集</p>
+<!-- 編集ボタン -->
+<form th:action="@{/{id}/edit(id=1)}" th:method="post">
+				<input type="hidden" name="id" th:value="1">
+				<input type="submit" value="id=1を編集"></form>
 </body>
 </html>

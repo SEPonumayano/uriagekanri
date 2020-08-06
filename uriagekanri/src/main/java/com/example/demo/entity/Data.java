@@ -94,7 +94,7 @@ public class Data implements Serializable{
 	}
 
 	//納入指定日
-	@Column(name = "delivery_Designated_Date")
+	@Column(name = "delivery_designated_date")
 	private Date deliveryDesignatedDate;
 
 	public Date getDeliveryDesignatedDate() {

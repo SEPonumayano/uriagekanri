@@ -15,10 +15,12 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dto.DataRequest;
+import com.example.demo.entity.Data;
 import com.example.demo.service.DataService;
 
 
@@ -96,4 +98,14 @@ public class DataController {
 		return "redirect:/list";
 	}
 
+
+	//編集ページ
+		@RequestMapping("/{id}/edit")
+		public String displayEdit(@PathVariable("id") Long id,Model model,DataRequest form) {
+			Data user =dataService.findById(id);
+
+			model.addAttribute("dataRequest",user);
+			model.addAttribute("selectSt",SELECT_ST);
+			return "/edit";
+		}
 }

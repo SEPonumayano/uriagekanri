@@ -16,6 +16,11 @@ public class DataService {
 	@Autowired
 	private DataRepository dataRepository;
 
+	//主キー
+	public Data findById(Long id) {
+		return dataRepository.findById(id).get();
+	}
+
 	//登録確認
 	public void create(DataRequest dataRequest) {
 
