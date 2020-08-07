@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dto.DataRequest;
+import com.example.demo.dto.DataUpdateRequest;
 import com.example.demo.entity.Data;
 import com.example.demo.service.DataService;
 
@@ -53,8 +56,12 @@ public class DataController {
 
 	}
 
+	//一覧
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
 	public String topPage(Model model) {
+		List<Data> wordpage =dataService.getfindListAll();
+
+		model.addAttribute("userlist",wordpage);
 
 		return "/list";
 
@@ -102,17 +109,17 @@ public class DataController {
 
 	//編集ページ
 		@RequestMapping("/{id}/edit")
-		public String displayEdit(@PathVariable("id") Long id,Model model,DataRequest form) {
+		public String displayEdit(@PathVariable("id") Long id,Model model) {
 			Data user =dataService.findById(id);
 
-			model.addAttribute("dataRequest",user);
+			model.addAttribute("dataUpdateRequest",user);
 			model.addAttribute("selectSt",SELECT_ST);
 			return "/edit";
 		}
 
 	//編集エラー出力
 	@RequestMapping(value="/{id}/createe",method=RequestMethod.POST)
-	public String createe(@ModelAttribute DataRequest dataRequest,BindingResult result,@PathVariable Long id,Model model) {
+	public String createe(@ModelAttribute DataUpdateRequest dataUpdateRequest,BindingResult result,@PathVariable Long id,Model model) {
 
 			//if(result.hasErrors()) {
 				//List<String>errorList=new ArrayList<String>();
@@ -123,7 +130,41 @@ public class DataController {
 			//model.addAttribute("validationError",errorList);
 		    //			return "/edit";
 		//	}
-			dataService.createe(dataRequest);
+			dataService.createe(dataUpdateRequest);
 			return "/editCheck";
 		}
+
+	//編集確認ページ
+	@RequestMapping(value="/{id}/editCheck",method=RequestMethod.POST)
+	public String editCheck(@PathVariable Long id,@ModelAttribute DataUpdateRequest dataUpdateRequest,Model model) {
+		model.addAttribute("dataUpdateRequest",dataUpdateRequest);
+		return "/editCheck";
+	}
+
+	//更新
+	@RequestMapping(value="/creatt",method=RequestMethod.POST)
+	public String creatt(@Validated @ModelAttribute DataUpdateRequest dataUpdateRequest,BindingResult result,Model model) {
+		dataService.creatt(dataUpdateRequest);
+		return String.format("redirect:/list");
+	}
+
+//---------------------------------------------------------------------------------------------
+
+	//削除ページ
+	@RequestMapping("/{id}/delete")
+	public String displaydelete(@PathVariable("id") Long id,Model model) {
+		Data user =dataService.findById(id);
+
+		model.addAttribute("dataUpdateRequest",user);
+		return "/delete";
+	}
+
+	//更新
+	@RequestMapping(value="/dataDelete",method=RequestMethod.POST)
+	public String dataDelete(@Validated @ModelAttribute DataUpdateRequest dataUpdateRequest,BindingResult result,Model model) {
+		dataService.creattt(dataUpdateRequest);
+		return String.format("redirect:/list");
+	}
+
+
 }

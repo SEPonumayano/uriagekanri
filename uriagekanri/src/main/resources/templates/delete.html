@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<p>下記案件を削除します。よろしいですか？</p>
+<form class="item" th:action="@{/dataDelete}" th:object="${dataUpdateRequest}" th:method="post">
+<input type="hidden" th:field="*{id}">
+<dl>
+		<dt>顧客*：</dt>
+		<dd th:text="*{nameid}"></dd>
+
+		<dt>受注日：</dt>
+		<dd th:text="*{orderDate}"></dd>
+
+		<dt>S番号：</dt>
+		<dd th:text="*{sNumber}"></dd>
+
+		<dt>件名*:</dt>
+		<dd th:text="*{subTitle}"></dd>
+</dl>
+<input type="submit"  value="OK" style="width:250px;height:20px;">
+<a th:href="@{/list}"><button type="button" style="width:250px;height:20px;">キャンセル</button></a>
+
+</form>
+</body>
+</html>
