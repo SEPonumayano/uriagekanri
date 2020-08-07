@@ -98,6 +98,7 @@ public class DataController {
 		return "redirect:/list";
 	}
 
+//-----------------------------------------------------------------------------------------------
 
 	//編集ページ
 		@RequestMapping("/{id}/edit")
@@ -107,5 +108,22 @@ public class DataController {
 			model.addAttribute("dataRequest",user);
 			model.addAttribute("selectSt",SELECT_ST);
 			return "/edit";
+		}
+
+	//編集エラー出力
+	@RequestMapping(value="/{id}/createe",method=RequestMethod.POST)
+	public String createe(@ModelAttribute DataRequest dataRequest,BindingResult result,@PathVariable Long id,Model model) {
+
+			//if(result.hasErrors()) {
+				//List<String>errorList=new ArrayList<String>();
+				//for(ObjectError error:result.getAllErrors()) {
+					//errorList.add(error.getDefaultMessage());
+				//}
+
+			//model.addAttribute("validationError",errorList);
+		    //			return "/edit";
+		//	}
+			dataService.createe(dataRequest);
+			return "/editCheck";
 		}
 }
