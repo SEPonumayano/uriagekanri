@@ -53,6 +53,7 @@ public class DataController {
 
 	}
 
+	//一覧表示
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
 	public String topPage(Model model) {
 

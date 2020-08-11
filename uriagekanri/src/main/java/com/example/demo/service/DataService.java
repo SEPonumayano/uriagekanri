@@ -21,6 +21,8 @@ public class DataService {
 		return dataRepository.findById(id).get();
 	}
 
+//-----------------------------------------------------------------------------
+
 	//登録確認
 	public void create(DataRequest dataRequest) {
 
@@ -60,6 +62,55 @@ public class DataService {
 			user.setRemark(dataRequest.getRemark());
 
 			return user;
+		}
+
+//-------------------------------------------------------------------------------
+
+	//編集確認
+		public void createe(DataRequest dataRequest) {
+			Data user =new Data();
+
+			user.setNameid(dataRequest.getNameid());
+			user.setOrderDate(dataRequest.getOrderDate());
+			user.setsNumber(dataRequest.getsNumber());
+			user.setSubTitle(dataRequest.getSubTitle());
+			user.setItems(dataRequest.getItems());
+			user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
+			user.setDeliveryDate(dataRequest.getDeliveryDate());
+			user.setEstimatedAmount(dataRequest.getEstimatedAmount());
+			user.setOrderAmount(dataRequest.getOrderAmount());
+			user.setStatusid(dataRequest.getStatusid());
+			user.setRemark(dataRequest.getRemark());
+		}
+
+	//DB登録
+		public void creatt(DataRequest dataRequest) {
+			Data user =findById(dataRequest.getId());
+
+			user.setNameid(dataRequest.getNameid());
+			user.setOrderDate(dataRequest.getOrderDate());
+			user.setsNumber(dataRequest.getsNumber());
+			user.setSubTitle(dataRequest.getSubTitle());
+			user.setItems(dataRequest.getItems());
+			user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
+			user.setDeliveryDate(dataRequest.getDeliveryDate());
+			user.setEstimatedAmount(dataRequest.getEstimatedAmount());
+			user.setOrderAmount(dataRequest.getOrderAmount());
+			user.setStatusid(dataRequest.getStatusid());
+			user.setRemark(dataRequest.getRemark());
+
+			dataRepository.save(user);
+		}
+
+//----------------------------------------------------------------------------------
+
+	//削除
+		public void creattt(DataRequest dataRequest) {
+			Data user =findById(dataRequest.getId());
+
+			user.setDelete_flg("1");
+
+			dataRepository.save(user);
 		}
 
 }

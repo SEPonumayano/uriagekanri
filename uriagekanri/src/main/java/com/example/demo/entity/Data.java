@@ -167,6 +167,17 @@ public class Data implements Serializable{
 		this.remark = remark;
 	}
 
+	//削除プラグ
+	@Column(name="delete_flg")
+	private String delete_flg;
+
+	public String getDelete_flg() {
+		return delete_flg;
+	}
+	public void setDelete_flg(String delete_flg) {
+		this.delete_flg=delete_flg;
+	}
+
 
 
 
