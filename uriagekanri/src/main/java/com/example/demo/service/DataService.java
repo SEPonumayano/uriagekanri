@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,11 @@ public class DataService {
 	//一覧情報
 	@Autowired
 	private DataRepository dataRepository;
+
+	//一覧表示
+	public List<Data> getfindAlldata (){
+		return dataRepository.findAlldata();
+	}
 
 	//主キー
 	public Data findById(Long id) {
@@ -60,6 +67,7 @@ public class DataService {
 			user.setOrderAmount(dataRequest.getOrderAmount());
 			user.setStatusid(dataRequest.getStatusid());
 			user.setRemark(dataRequest.getRemark());
+			user.setDelete_flg("0");
 
 			return user;
 		}
@@ -98,6 +106,7 @@ public class DataService {
 			user.setOrderAmount(dataRequest.getOrderAmount());
 			user.setStatusid(dataRequest.getStatusid());
 			user.setRemark(dataRequest.getRemark());
+			user.setDelete_flg("0");
 
 			dataRepository.save(user);
 		}

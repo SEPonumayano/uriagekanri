@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -56,6 +58,9 @@ public class DataController {
 	//一覧表示
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
 	public String topPage(Model model) {
+		List<Data> listde =dataService.getfindAlldata();
+
+		model.addAttribute("userlist",listde);
 
 		return "/list";
 
@@ -127,4 +132,37 @@ public class DataController {
 			dataService.createe(dataRequest);
 			return "/editCheck";
 		}
+
+	//編集確認ページ
+	@RequestMapping(value="/{id}/editCheck",method=RequestMethod.POST)
+	public String editCheck(@PathVariable Long id,@ModelAttribute DataRequest dataRequest,Model model) {
+		model.addAttribute("dataRequest",dataRequest);
+		return "/editCheck";
+	}
+
+	//更新
+	@RequestMapping(value="/creatt",method=RequestMethod.POST)
+	public String creatt(@Validated @ModelAttribute DataRequest dataRequest,BindingResult result,Model model) {
+		dataService.creatt(dataRequest);
+		return String.format("redirect:/list");
+	}
+
+//-----------------------------------------------------------------------------------------
+
+	//削除ページ
+	@RequestMapping("/{id}/delete")
+	public String disdelete(@PathVariable("id") Long id,Model model) {
+		Data user =dataService.findById(id);
+
+		model.addAttribute("dataRequest",user);
+		return "/delete";
+	}
+
+	//更新
+	@RequestMapping(value="/datadelete",method=RequestMethod.POST)
+	public String datadelete(@Validated @ModelAttribute DataRequest dataRequest,BindingResult result,Model model) {
+		dataService.creattt(dataRequest);
+		return String.format("redirect:/list");
+	}
+
 }

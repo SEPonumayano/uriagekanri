@@ -44,6 +44,9 @@
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40" th:field="*{remark}"></textarea></dd>
 </dl>
+<input type="hidden" th:field="*{id}">
+
+<input type="submit" value="確認" style="width:250px;height:20px;">
 <a th:href="@{/list}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
 </form></body>
 </html>
