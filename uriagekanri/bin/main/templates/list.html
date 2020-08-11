@@ -14,31 +14,10 @@
 	</div>
 	</div>
 <br/>
-<table border="1" >
-			<tr bgcolor="#8490c8">
-				<th style="width:22px; max-width:22px;">ID</th>
-				<th style="width:334px; max-width:334px;" >名前</th>
-				<th style="width:42px"></th>
-				<th style="width:42px"></th>
-			</tr>
-			<tr th:each="user,nameStat : ${userlist}" th:object="${user}">
-				<td class="box-read"  style="max-width:334px;" align="center" th:text="${user.name}"></td>
-				<td class="box-read" style="max-width:360px;" align="center" th:text="${user.nameid}"></td>
-				<td >
-				<form th:action="@{/{id}/edit(id=*{id})}" th:method="post">
-				<input type="hidden" name="id" th:value="${user.id}">
-				<input type="submit" value="編集"></form><!-- </a>--></td>
-				<td>
-				<form th:action="@{/{id}/delete(id=*{id})}" th:method="post">
-				<input type="hidden" name="id" th:value="${user.id}">
-				<input type="submit" value="削除"></form><!-- </a>--></td>
-			</tr></table>
-
-
-<!--  <p>ID=1の編集</p>
-<!-- 編集ボタ
+<p>ID=1の編集</p>
+<!-- 編集ボタン -->
 <form th:action="@{/{id}/edit(id=1)}" th:method="post">
 				<input type="hidden" name="id" th:value="1">
-				<input type="submit" value="id=1を編集"></form>-->
+				<input type="submit" value="id=1を編集"></form>
 </body>
 </html>

@@ -1,13 +1,39 @@
-package com.example.demo.dto;
+package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
-public class DataRequest implements Serializable{
+@Entity
+@Table(name = "maindata")
+public class Data implements Serializable{
 
+	//DBの情報引き出す用
+		private static final long serialVersionUID = -870708489937857961L;
 
-	//顧客名ID
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@TableGenerator(name="seqTable", table="seq_table", pkColumnName="seq_name", pkColumnValue="word_seq", valueColumnName="seq_value")
+	@Column(name = "id")
+	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	//顧客名
+	@Column(name = "nameid")
 	private String nameid;
 
 	public String getNameid() {
@@ -18,20 +44,21 @@ public class DataRequest implements Serializable{
 		this.nameid = nameid;
 	}
 
-
 	//受注日
+	@Column(name = "order_date")
 	private Date orderDate;
 
 	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setOrderDate(Date date) {
+		this.orderDate = date;
 	}
 
-
 	//S番号
+	//名前
+	@Column(name = "snumber")
 	private String sNumber;
 
 	public String getsNumber() {
@@ -42,8 +69,8 @@ public class DataRequest implements Serializable{
 		this.sNumber = sNumber;
 	}
 
-
 	//件名
+	@Column(name = "subtitle")
 	private String subTitle;
 
 	public String getSubTitle() {
@@ -54,8 +81,8 @@ public class DataRequest implements Serializable{
 		this.subTitle = subTitle;
 	}
 
-
 	//数量
+	@Column(name = "items")
 	private String items;
 
 	public String getItems() {
@@ -66,8 +93,8 @@ public class DataRequest implements Serializable{
 		this.items = items;
 	}
 
-
 	//納入指定日
+	@Column(name = "delivery_designated_date")
 	private Date deliveryDesignatedDate;
 
 	public Date getDeliveryDesignatedDate() {
@@ -78,9 +105,10 @@ public class DataRequest implements Serializable{
 		this.deliveryDesignatedDate = deliveryDesignatedDate;
 	}
 
-
 	//納入日
+	@Column(name = "delivery_date")
 	private Date deliveryDate;
+
 
 	public Date getDeliveryDate() {
 		return deliveryDate;
@@ -90,8 +118,8 @@ public class DataRequest implements Serializable{
 		this.deliveryDate = deliveryDate;
 	}
 
-
 	//見積金額
+	@Column(name = "estimated_amount")
 	private String estimatedAmount;
 
 	public String getEstimatedAmount() {
@@ -102,8 +130,8 @@ public class DataRequest implements Serializable{
 		this.estimatedAmount = estimatedAmount;
 	}
 
-
 	//受注金額
+	@Column(name = "order_amount")
 	private String orderAmount;
 
 	public String getOrderAmount() {
@@ -116,6 +144,7 @@ public class DataRequest implements Serializable{
 
 
 	//ステータス
+	@Column(name = "statusid")
 	private int statusid;
 
 	public int getStatusid() {
@@ -126,8 +155,8 @@ public class DataRequest implements Serializable{
 		this.statusid = statusid;
 	}
 
-
 	//備考
+	@Column(name = "remark")
 	private String remark;
 
 	public String getRemark() {
@@ -137,6 +166,10 @@ public class DataRequest implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+
+
+
 
 
 }
