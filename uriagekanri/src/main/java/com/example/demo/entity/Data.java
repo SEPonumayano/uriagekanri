@@ -45,7 +45,7 @@ public class Data implements Serializable{
 	}
 
 	//受注日
-	@Column(name = "order_date")
+	@Column(name = "orderdate")
 	private Date orderDate;
 
 	public Date getOrderDate() {
@@ -116,6 +116,18 @@ public class Data implements Serializable{
 
 	public void setDeliveryDate(Date deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+
+	//請求日
+	@Column(name="billing_date")
+	private Date billingDate;
+
+	public Date getBillingDate() {
+		return billingDate;
+	}
+
+	public void setBillingDate(Date billingDate) {
+		this.billingDate=billingDate;
 	}
 
 	//見積金額

@@ -29,6 +29,9 @@
 		<dt>納入日</dt>
 		<dd th:text="*{deliveryDate}"></dd>
 
+		<dt>請求日</dt>
+		<dd th:text="*{billingDate}"></dd>
+
 		<dt>見積金額：</dt>
 		<dd th:text="*{estimatedAmount}"></dd>
 
@@ -49,6 +52,7 @@
 <input type="hidden" name="items" th:field="*{items}">
 <input type="hidden" name="deleveryDesignatedDate" th:field="*{deliveryDesignatedDate}">
 <input type="hidden" name="deliveryDate" th:field="*{deliveryDate}">
+<input type="hidden" name="billignDate" th:field="*{billingDate}">
 <input type="hidden" name="estimatedAmount" th:field="*{estimatedAmount}">
 <input type="hidden" name="orderAmount" th:field="*{orderAmount}">
 <input type="hidden" name="statusid" th:field="*{statusid}">

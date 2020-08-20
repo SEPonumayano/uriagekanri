@@ -4,11 +4,13 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.dto.DataRequest;
+import com.example.demo.dto.PageWrapper;
 import com.example.demo.entity.Data;
 import com.example.demo.service.DataService;
 
@@ -57,10 +60,15 @@ public class DataController {
 
 	//一覧表示
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
-	public String topPage(Model model) {
-		List<Data> listde =dataService.getfindAlldata();
+	public String topPage(@PageableDefault(size=10)Pageable pageable,Model model) {
+		Page<Data> listde =dataService.getfindAlldataA(pageable);
+
+		//ページング
+		PageWrapper<Data> page = new PageWrapper<Data>(listde, "/list");
 
 		model.addAttribute("userlist",listde);
+		model.addAttribute("page",page);
+		model.addAttribute("words",page.getContent());
 
 		return "/list";
 

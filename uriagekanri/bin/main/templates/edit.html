@@ -6,7 +6,7 @@
 </head>
 <body>
 <p>製造部売上管理システム：案件編集</p>
-<form class="item" th:action="@{/list}" th:object="${dataRequest}"
+<form class="item" th:action="@{/{id}/createe(id=*{id})}" th:object="${dataRequest}"
 		th:method="post">
 <dl>
 		<dt>顧客*：</dt>
@@ -30,6 +30,9 @@
 		<dt>納入日</dt>
 		<dd><input type="date" name="deliveryDate" th:field="*{deliveryDate}"></dd>
 
+		<dt>請求日</dt>
+		<dd><input type="date" name="billingDate" th:field="*{billingDate}"></dd>
+
 		<dt>見積金額：</dt>
 		  <dd><input type="number" name="estimatedAmount" th:field="*{estimatedAmount}"></dd>
 
@@ -44,6 +47,10 @@
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40" th:field="*{remark}"></textarea></dd>
 </dl>
+<input type="hidden" th:field="*{id}">
+<input type="hidden" th:field="*{nameid}">
+
+<input type="submit" value="確認" style="width:250px;height:20px;">
 <a th:href="@{/list}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
 </form></body>
 </html>

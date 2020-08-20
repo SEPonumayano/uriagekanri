@@ -100,6 +100,17 @@ public class DataRequest implements Serializable{
 		this.deliveryDate = deliveryDate;
 	}
 
+	//請求日
+	private Date billingDate;
+
+	public Date getBillingDate() {
+		return billingDate;
+	}
+
+	public void setBillingDate(Date billingDate) {
+		this.billingDate = billingDate;
+	}
+
 
 	//見積金額
 	private String estimatedAmount;

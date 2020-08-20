@@ -14,27 +14,39 @@
 	</div>
 	</div>
 <br/>
-<!--  <p>ID=1の編集</p>
-<!-- 編集ボタン -
-<form th:action="@{/{id}/edit(id=1)}" th:method="post">
-				<input type="hidden" name="id" th:value="1">
-				<input type="submit" value="id=1を編集前の奴"></form>
--->
-<table>
+
+<table border="1">
 <tr>
 <th>ID</th>
 <th>nameID</th>
+<th>受注日</th>
+<th>S番号</th>
+<th>件名</th>
+<th>数量</th>
+<th>納入指定日/納入日</th>
+<th>請求日</th>
+<th>見積金額/受注金額</th>
+<th>ステータス</th>
 <th></th>
 <th></th>
 </tr>
-<tr th:each="user,nameStat : ${userlist}" th:object="${data}">
-<td th:text="${data.id}"></td>
+<tr th:each="data,nameStat : ${userlist}" th:object="${data}">
+<td th:text="${nameStat.count}+${page.size}*(${page.number}-1)"></td>
 <td th:text="${data.nameid}"></td>
+<td th:text="${data.orderDate}"></td>
+<td th:text="${data.sNumber}"></td>
+<td th:text="${data.subTitle}"></td>
+<td th:text="${data.items}"></td>
+<td th:text="${data.deliveryDesignatedDate}+'/'+${data.deliveryDate}"></td>
+<td th:text="${data.billingDate}"></td>
+<td th:text="${data.estimatedAmount}+'/'+${data.orderAmount}"></td>
+<td th:text="${data.statusid}"></td>
 <td>
 <form th:action="@{/{id}/edit(id=*{id})}" th:method="post">
 <input type="hidden" name="id" th:value="${data.id}">
 <input type="submit" value="編集">
-</form></td>
+</form>
+</td>
 <td>
 <form th:action="@{/{id}/delete(id=*{id})}" th:method="post">
 <input type="hidden" name="id" th:value="${data.id}">
@@ -42,5 +54,34 @@
 </td>
 </tr>
 </table>
+<!-- ページング -->
+
+	<div th:fragment='paginationbar'>
+	<ul>
+	<li th:class="${page.firstPage}?'disabled':''" style="display:inline">
+    <span th:if='${page.firstPage}'>＜＜</span>
+    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},page=0,size=${page.size})}'>＜＜</a>
+    </li>
+	<li th:class="${page.hasPreviousPage}? '' :'disabled'" style="display:inline">
+	<span th:if='${not page.hasPreviousPage}'>＜</span>
+	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.number-2},size=${page.size})}'>＜</a>
+	</li>
+	<li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''" style="display:inline">
+	<span th:if='${item.current}' th:text='${item.number}'>1</span>
+	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},page=${item.number-1},size=${page.size})}'>
+    <span th:text='${item.number}'>1</span>
+    </a>
+	</li>
+	<li th:class="${page.hasNextPage}? '' : 'disabled'" style="display:inline">
+    <span th:if='${not page.hasNextPage}'>＞</span>
+    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.number},size=${page.size})}'>＞</a>
+    </li>
+    <li th:class="${page.lastPage}? 'disabled' : ''" style="display:inline">
+    <span th:if='${page.lastPage}'>＞＞</span>
+    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
+    </li>
+	</ul></div>
+
+
 </body>
 </html>

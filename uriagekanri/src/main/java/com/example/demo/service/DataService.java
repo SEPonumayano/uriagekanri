@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
-import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DataRequest;
@@ -19,8 +20,8 @@ public class DataService {
 	private DataRepository dataRepository;
 
 	//一覧表示
-	public List<Data> getfindAlldata (){
-		return dataRepository.findAlldata();
+	public Page<Data> getfindAlldataA (Pageable pageable){
+		return dataRepository.findAlldataA(pageable);
 	}
 
 	//主キー
@@ -41,6 +42,7 @@ public class DataService {
 		user.setItems(dataRequest.getItems());
 		user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
 		user.setDeliveryDate(dataRequest.getDeliveryDate());
+		user.setBillingDate(dataRequest.getBillingDate());
 		user.setEstimatedAmount(dataRequest.getEstimatedAmount());
 		user.setOrderAmount(dataRequest.getOrderAmount());
 		user.setStatusid(dataRequest.getStatusid());
@@ -63,6 +65,7 @@ public class DataService {
 			user.setItems(dataRequest.getItems());
 			user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
 			user.setDeliveryDate(dataRequest.getDeliveryDate());
+			user.setBillingDate(dataRequest.getBillingDate());
 			user.setEstimatedAmount(dataRequest.getEstimatedAmount());
 			user.setOrderAmount(dataRequest.getOrderAmount());
 			user.setStatusid(dataRequest.getStatusid());
@@ -85,6 +88,7 @@ public class DataService {
 			user.setItems(dataRequest.getItems());
 			user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
 			user.setDeliveryDate(dataRequest.getDeliveryDate());
+			user.setBillingDate(dataRequest.getBillingDate());
 			user.setEstimatedAmount(dataRequest.getEstimatedAmount());
 			user.setOrderAmount(dataRequest.getOrderAmount());
 			user.setStatusid(dataRequest.getStatusid());
@@ -102,6 +106,7 @@ public class DataService {
 			user.setItems(dataRequest.getItems());
 			user.setDeliveryDesignatedDate(dataRequest.getDeliveryDesignatedDate());
 			user.setDeliveryDate(dataRequest.getDeliveryDate());
+			user.setBillingDate(dataRequest.getBillingDate());
 			user.setEstimatedAmount(dataRequest.getEstimatedAmount());
 			user.setOrderAmount(dataRequest.getOrderAmount());
 			user.setStatusid(dataRequest.getStatusid());
