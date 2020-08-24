@@ -16,13 +16,13 @@
 		<dd><input type="date" name="orderDate" th:field="*{orderDate}"></dd>
 
 		<dt>S番号：</dt>
-		<dd><input type="text" name="sNumber" th:field="*{sNumber}"></dd>
+		<dd><input type="text" name="sNumber" th:field="*{sNumber}" value="S-" maxlength="6"></dd>
 
 		<dt>件名*:</dt>
 		<dd><input type="text" name="subTitle" th:field="*{subTitle}"></dd>
 
 		<dt>数量：</dt>
-		<dd><input type="text" name="items" th:field="*{items}"></dd>
+		<dd><input type="text" name="items" th:field="*{items}" maxlength="5"></dd>
 
 		<dt>納入指定日：</dt>
 		<dd><input type="date" name="deliveryDesignatedDate" th:field="*{deliveryDesignatedDate}"></dd>
@@ -34,10 +34,10 @@
 		<dd><input type="date" name="billingDate" th:field="*{billingDate}"></dd>
 
 		<dt>見積金額：</dt>
-		  <dd><input type="number" name="estimatedAmount" th:field="*{estimatedAmount}"></dd>
+		  <dd><input type="text" name="estimatedAmount" th:field="*{estimatedAmount}" maxlength="12"></dd>
 
 		<dt>受注金額：</dt>
-		<dd><input type="number" name="orderAmount" th:field="*{orderAmount}"></dd>
+		<dd><input type="text" name="orderAmount" th:field="*{orderAmount}" maxlength="12"></dd>
 
 		<dt>ステータス：</dt>
 		<dd><select id="selectedSt" name="statusid">

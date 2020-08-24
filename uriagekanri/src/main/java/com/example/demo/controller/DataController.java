@@ -77,8 +77,10 @@ public class DataController {
 	//登録ページ
 	@GetMapping(value = "/add")
 	public String displayAdd(DataRequest form,Model model) {
+		//List<ClientSelect> client =dataService.getclientData();
 
 		model.addAttribute("dataRequest", new DataRequest());
+		//model.addAttribute("clientD",client);
 		model.addAttribute("selectItems",SELECT_ITEMS);
 		model.addAttribute("selectSt",SELECT_ST);
 		return "/add";
@@ -96,10 +98,8 @@ public class DataController {
 	//登録確認ページ
 	@RequestMapping(value="/addCheck" ,method=RequestMethod.POST)
 	public String addCheck(@ModelAttribute DataRequest dataRequest, Model model) {
-		//Date order=dataRequest.getOrderDate();
 
 		model.addAttribute("DataRequest",  dataRequest);
-		//model.addAttribute("order",  order);
 
 		return "/addCheck";
 	}

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -16,7 +18,7 @@ import javax.persistence.TableGenerator;
 public class Data implements Serializable{
 
 	//DBの情報引き出す用
-		private static final long serialVersionUID = -870708489937857961L;
+	private static final long serialVersionUID = -870708489937857961L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +34,10 @@ public class Data implements Serializable{
 		this.id = id;
 	}
 
-	//顧客名
-	@Column(name = "nameid")
+	//顧客ID
+	//結合
+	@ManyToOne
+	@JoinColumn(name="nameid")
 	private String nameid;
 
 	public String getNameid() {
@@ -189,6 +193,8 @@ public class Data implements Serializable{
 	public void setDelete_flg(String delete_flg) {
 		this.delete_flg=delete_flg;
 	}
+
+
 
 
 

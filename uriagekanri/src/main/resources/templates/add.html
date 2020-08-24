@@ -12,18 +12,21 @@
 		<dd><select id="selectedItem" name="nameid">
 		<option th:each="item:${selectItems}" th:value="${item.value}"  th:text="${item.key}"></option>
 		</select></dd>
+		<!--  <dd><select id="clientItems" name="nameid">
+		<option th:each="clientSelect:${clientD}" th:value="${clientSelect.client}"  th:text="${clientSelect.clientid}"></option>
+		</select></dd>-->
 
 		<dt>受注日：</dt>
 		<dd><input type="date" name="orderDate"></dd>
 
 		<dt>S番号：</dt>
-		<dd><input type="text" name="sNumber"></dd>
+		<dd><input type="text" name="sNumber" value="S-" maxlength="6"></dd>
 
 		<dt>件名*:</dt>
 		<dd><input type="text" name="subTitle"></dd>
 
 		<dt>数量：</dt>
-		<dd><input type="text" name="items"></dd>
+		<dd><input type="text" name="items" maxlength="5"></dd>
 
 		<dt>納入指定日：</dt>
 		<dd><input type="date" name="deliveryDesignatedDate"></dd>
@@ -35,10 +38,10 @@
 		<dd><input type="date" name="billingDate"></dd>
 
 		<dt>見積金額：</dt>
-		  <dd><input type="number" name="estimatedAmount"></dd>
+		  <dd><input type="text" name="estimatedAmount" maxlength="12"></dd>
 
 		<dt>受注金額：</dt>
-		<dd><input type="number" name="orderAmount"></dd>
+		<dd><input type="text" name="orderAmount" maxlength="12"></dd>
 
 		<dt>ステータス：</dt>
 		<dd><select id="selectedSt" name="statusid">

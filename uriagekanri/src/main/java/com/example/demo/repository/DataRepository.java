@@ -12,7 +12,8 @@ import com.example.demo.entity.Data;
 @Repository
 public interface DataRepository extends JpaRepository<Data, Long>{
 	//総件数
-	@Query(value="SELECT * FROM maindata WHERE delete_flg=0",nativeQuery=true)
+	@Query(value="SELECT id,nameid,orderdate,snumber,subtitle,items,delivery_designated_date,delivery_date,billing_date,estimated_amount,order_amount,statusid,remark,delete_flg,client FROM maindata INNER JOIN clientname ON maindata.nameid=clientname.nameid WHERE delete_flg=0",nativeQuery=true)
 	Page<Data> findAlldataA(Pageable pageable);
 
 }
+
