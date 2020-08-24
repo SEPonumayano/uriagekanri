@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-@Entity
+@Entity(name="main")
 @Table(name = "maindata")
 public class Data implements Serializable{
 
@@ -21,7 +21,7 @@ public class Data implements Serializable{
 	private static final long serialVersionUID = -870708489937857961L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@TableGenerator(name="seqTable", table="seq_table", pkColumnName="seq_name", pkColumnValue="word_seq", valueColumnName="seq_value")
 	@Column(name = "id")
 	private Long id;
@@ -32,20 +32,6 @@ public class Data implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	//顧客ID
-	//結合
-	@ManyToOne
-	@JoinColumn(name="nameid")
-	private String nameid;
-
-	public String getNameid() {
-		return nameid;
-	}
-
-	public void setNameid(String nameid) {
-		this.nameid = nameid;
 	}
 
 	//受注日
@@ -59,6 +45,18 @@ public class Data implements Serializable{
 	public void setOrderDate(Date date) {
 		this.orderDate = date;
 	}
+
+	//@Column(name = "nameid")
+	//private String nameId;
+
+
+	//public String getNameId() {
+	//	return nameId;
+	//}
+
+	//public void setNameId(String nameId) {
+		//this.nameId = nameId;
+	//}
 
 	//S番号
 	//名前
@@ -195,8 +193,44 @@ public class Data implements Serializable{
 	}
 
 
+	//顧客ID
+	//結合
+	@ManyToOne
+	@JoinColumn(name="nameid",referencedColumnName="nameid")
+	private  Clientname nameid;
 
+	public Clientname getNameid() {
+		return nameid;
+	}
 
+	public void setNameid(Clientname nameid) {
+		this.nameid = nameid;
+	}
+
+	//@ManyToOne
+	//@JoinColumn(name="nameid_nameid",referencedColumnName="nameid")
+	//private  Clientname clientname;
+
+	//public String getClientname() {
+		//return clientname;
+	//}
+
+	//public void setClientname(String nameid) {
+		//this.nameid = nameid;
+	//}
+
+//,referencedColumnName="nameid"/ (fetch = FetchType.LAZY)
+	//@ManyToOne
+	//@JoinColumn(name="nameid")
+	//private  Clientname nameid;
+
+	//public Clientname getNameid() {
+		//return nameid;
+	//}
+
+	//public void setNameid(Clientname nameid) {
+		//this.nameid = nameid;
+	//}
 
 
 

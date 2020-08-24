@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.dto.DataRequest;
 import com.example.demo.dto.PageWrapper;
@@ -30,6 +31,7 @@ import com.example.demo.service.DataService;
 
 
 @Controller
+@SessionAttributes("keyword")
 public class DataController {
 	@Autowired
 	DataService dataService;
@@ -60,8 +62,22 @@ public class DataController {
 
 	//一覧表示
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
-	public String topPage(@PageableDefault(size=10)Pageable pageable,Model model) {
-		Page<Data> listde =dataService.getfindAlldataA(pageable);
+	public String topPage(DataRequest dataRequest,@PageableDefault(size=10)Pageable pageable,Model model) {
+
+		//キーワード
+		DataRequest word =new DataRequest();
+		String key=word.setKeyword(dataRequest.getKeyword());
+
+		//一覧
+		Page<Data> listde;
+
+		if(key==null) {
+			listde =dataService.getfindAlldataA(pageable);
+		}
+		else {
+			listde =dataService.getsearchword(dataRequest,pageable);
+		}
+
 
 		//ページング
 		PageWrapper<Data> page = new PageWrapper<Data>(listde, "/list");
@@ -69,10 +85,38 @@ public class DataController {
 		model.addAttribute("userlist",listde);
 		model.addAttribute("page",page);
 		model.addAttribute("words",page.getContent());
+		model.addAttribute("keyword", key);
 
 		return "/list";
 
 	}
+
+	//住所検索
+	@RequestMapping(value ="/{keyword}/list" ,method = RequestMethod.POST)
+		public String search(@ModelAttribute DataRequest dataRequest,@Validated Data data,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
+
+			DataRequest word =new DataRequest();
+			String keyword=word.setKeyword(dataRequest.getKeyword());
+
+			Page<Data> seachpage=null;
+
+			if(keyword.isEmpty()) {
+				seachpage=dataService.getfindAlldataA(pageable);
+			}
+			else {
+				seachpage = dataService.getsearchword(dataRequest,pageable);
+			}
+
+
+			PageWrapper<Data> page = new PageWrapper<Data>(seachpage, "/user/list");
+
+			model.addAttribute("userlist",seachpage );
+			model.addAttribute("keyword",keyword );
+			model.addAttribute("page", page);
+			model.addAttribute("words",page.getContent());
+
+			return "/list";
+		}
 
 	//登録ページ
 	@GetMapping(value = "/add")

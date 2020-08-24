@@ -3,8 +3,20 @@ package com.example.demo.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.example.demo.entity.Clientname;
+
 
 public class DataRequest implements Serializable{
+
+	private String keyword;
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public String setKeyword(String keyword) {
+		return this.keyword = keyword;
+	}
 
 	private Long id;
 
@@ -18,13 +30,24 @@ public class DataRequest implements Serializable{
 
 
 	//顧客名ID
-	private String nameid;
+	//private String nameid;
 
-	public String getNameid() {
+	//public String getNameid() {
+		//return nameid;
+	//}
+
+	//public void setNameid(String nameid) {
+		//this.nameid = nameid;
+	//}
+
+	//顧客名ID
+	private Clientname nameid;
+
+	public Clientname getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(String nameid) {
+	public void setNameid(Clientname nameid) {
 		this.nameid = nameid;
 	}
 

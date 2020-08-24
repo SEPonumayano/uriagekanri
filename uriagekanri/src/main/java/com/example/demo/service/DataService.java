@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DataRequest;
-import com.example.demo.entity.ClientSelect;
 import com.example.demo.entity.Data;
-import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DataRepository;
 
 @Service
@@ -22,12 +18,18 @@ public class DataService {
 	//一覧情報
 	@Autowired
 	private DataRepository dataRepository;
-	private ClientRepository clientRepository;
 
 	//一覧表示
 	public Page<Data> getfindAlldataA (Pageable pageable){
 		return dataRepository.findAlldataA(pageable);
 	}
+
+	//検索、ページング
+	public Page<Data> getsearchword(DataRequest dataRequest,Pageable pageable) {
+			DataRequest word =new DataRequest();
+			String keyword=word.setKeyword(dataRequest.getKeyword());
+			return dataRepository.searchword(keyword,pageable);
+		}
 
 	//主キー
 	public Data findById(Long id) {
@@ -35,9 +37,9 @@ public class DataService {
 	}
 
 	//顧客一覧
-	public List<ClientSelect> getclientData(){
-		return clientRepository.clientData();
-	}
+	//public List<ClientSelect> getclientData(){
+		//return clientRepository.clientData();
+	//}
 
 //-----------------------------------------------------------------------------
 

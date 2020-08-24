@@ -10,7 +10,16 @@
 <!-- 登録ボタン -->
 	<div class="menu">
 	<div class="add">
-		<a th:href="@{/add}"><button type="button" style="width:200px">新規登録できるよ</button></a>
+		<a th:href="@{/add}"><button type="button" style="width:200px">新規登録</button></a>
+	</div>
+		<!-- 住所検索 -->
+	<div class="serch">
+	<form class="seach" th:action="@{/{key}/list(key=keyword)}" th:object="${DataRequest}" th:method="post">
+	<div class="seachsubTitle">件名：</div>
+	<div class="seachsubTitle"><input class="seachword" type="text" name="keyword" th:value="${keyword}" style="width:200px">
+	<input class="sss" type=submit value="検索" style="width:204px">
+	</div>
+	</form>
 	</div>
 	</div>
 <br/>
@@ -62,7 +71,7 @@
 </tr>
 <tr th:each="data,nameStat : ${userlist}" th:object="${data}">
 <td th:text="${nameStat.count}+${page.size}*(${page.number}-1)"></td>
-<td th:text="${data.nameid}"></td>
+<td th:text="${data.nameid.client}"></td>
 <td th:text="${data.orderDate}"></td>
 <td th:text="${data.sNumber}"></td>
 <td th:text="${data.subTitle}"></td>
@@ -112,6 +121,11 @@
     </li>
 	</ul></div>
 
-
+<!-- 登録ボタン -->
+	<div class="menu">
+	<div class="add">
+		<a th:href="@{/add}"><button type="button" style="width:200px">新規登録</button></a>
+	</div>
+	</div>
 </body>
 </html>

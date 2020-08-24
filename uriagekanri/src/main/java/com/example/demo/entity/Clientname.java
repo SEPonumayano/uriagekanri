@@ -1,28 +1,19 @@
 package com.example.demo.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-@Entity
+@Entity(name = "clientname")
 @Table(name = "clientname")
-public class ClientSelect implements Serializable{
-
+public class Clientname implements Serializable{
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long nameid;
-
-	private String client;
-
-	@OneToMany(mappedBy="clientname",cascade=CascadeType.ALL)
-	private List<Data> datas;
 
 	public Long getNameid() {
 		return nameid;
@@ -32,6 +23,8 @@ public class ClientSelect implements Serializable{
 		this.nameid = nameid;
 	}
 
+	private String client;
+
 	public String getClient() {
 		return client;
 	}
@@ -40,15 +33,17 @@ public class ClientSelect implements Serializable{
 		this.client = client;
 	}
 
-	public List<Data> getDatas() {
-		return datas;
-	}
 
-	public void setDatas(List<Data> datas) {
-		this.datas = datas;
-	}
+	//@OneToMany(mappedBy="nameid")
+	//private Data data;
 
+	//public Data getData() {
+		//return data;
+	//}
 
+	//public void setData(Data data) {
+		//this.data = data;
+	//}
 
 
 }
