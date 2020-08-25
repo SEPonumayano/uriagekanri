@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.example.demo.dto.DataRequest;
 import com.example.demo.dto.PageWrapper;
 import com.example.demo.entity.Data;
+import com.example.demo.entity.Listdata;
 import com.example.demo.service.DataService;
 
 
@@ -69,7 +70,7 @@ public class DataController {
 		String key=word.setKeyword(dataRequest.getKeyword());
 
 		//一覧
-		Page<Data> listde;
+		Page<Listdata> listde;
 
 		if(key==null) {
 			listde =dataService.getfindAlldataA(pageable);
@@ -80,7 +81,7 @@ public class DataController {
 
 
 		//ページング
-		PageWrapper<Data> page = new PageWrapper<Data>(listde, "/list");
+		PageWrapper<Listdata> page = new PageWrapper<Listdata>(listde, "/list");
 
 		model.addAttribute("userlist",listde);
 		model.addAttribute("page",page);
@@ -93,12 +94,12 @@ public class DataController {
 
 	//住所検索
 	@RequestMapping(value ="/{keyword}/list" ,method = RequestMethod.POST)
-		public String search(@ModelAttribute DataRequest dataRequest,@Validated Data data,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
+		public String search(@ModelAttribute DataRequest dataRequest,@Validated Listdata listdata,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
 
 			DataRequest word =new DataRequest();
 			String keyword=word.setKeyword(dataRequest.getKeyword());
 
-			Page<Data> seachpage=null;
+			Page<Listdata> seachpage=null;
 
 			if(keyword.isEmpty()) {
 				seachpage=dataService.getfindAlldataA(pageable);
@@ -108,7 +109,7 @@ public class DataController {
 			}
 
 
-			PageWrapper<Data> page = new PageWrapper<Data>(seachpage, "/user/list");
+			PageWrapper<Listdata> page = new PageWrapper<Listdata>(seachpage, "/user/list");
 
 			model.addAttribute("userlist",seachpage );
 			model.addAttribute("keyword",keyword );

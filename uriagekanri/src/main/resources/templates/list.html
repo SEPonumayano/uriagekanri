@@ -69,31 +69,31 @@
 <th></th>
 <th></th>
 </tr>
-<tr th:each="data,nameStat : ${userlist}" th:object="${data}">
+<tr th:each="listdata,nameStat : ${userlist}" th:object="${listdata}">
 <td th:text="${nameStat.count}+${page.size}*(${page.number}-1)"></td>
-<td th:text="${data.nameid.client}"></td>
-<td th:text="${data.orderDate}"></td>
-<td th:text="${data.sNumber}"></td>
-<td th:text="${data.subTitle}"></td>
-<td th:text="${data.items}"></td>
-<td th:text="${data.deliveryDesignatedDate}+'/'+${data.deliveryDate}"></td>
-<td th:text="${data.billingDate}"></td>
-<td th:text="${data.estimatedAmount}+'/'+${data.orderAmount}"></td>
-<td th:text="${data.statusid}"></td>
+<td th:text="${listdata.nameid.client}"></td>
+<td th:text="${listdata.orderDate}"></td>
+<td th:text="${listdata.sNumber}"></td>
+<td th:text="${listdata.subTitle}"></td>
+<td th:text="${listdata.items}"></td>
+<td th:text="${listdata.deliveryDesignatedDate}+'/'+${listdata.deliveryDate}"></td>
+<td th:text="${listdata.billingDate}"></td>
+<td th:text="${listdata.estimatedAmount}+'/'+${listdata.orderAmount}"></td>
+<td th:text="${listdata.statusid}"></td>
 <td>
 <form th:action="@{/{id}/edit(id=*{id})}" th:method="post">
-<input type="hidden" name="id" th:value="${data.id}">
+<input type="hidden" name="id" th:value="${listdata.id}">
 <input type="submit" value="編集">
 </form>
 </td>
 <td>
 <form th:action="@{/{id}/delete(id=*{id})}" th:method="post">
-<input type="hidden" name="id" th:value="${data.id}">
+<input type="hidden" name="id" th:value="${listdata.id}">
 <input type="submit" value="削除"></form>
 </td>
 </tr>
 </table>
-<!-- ページング -->
+<!-- ページング nameid.client-->
 
 	<div th:fragment='paginationbar'>
 	<ul>

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DataRequest;
 import com.example.demo.entity.Data;
+import com.example.demo.entity.Listdata;
 import com.example.demo.repository.DataRepository;
+import com.example.demo.repository.ListRepository;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
@@ -19,16 +21,19 @@ public class DataService {
 	@Autowired
 	private DataRepository dataRepository;
 
+	@Autowired
+	private ListRepository listRepository;
+
 	//一覧表示
-	public Page<Data> getfindAlldataA (Pageable pageable){
-		return dataRepository.findAlldataA(pageable);
+	public Page<Listdata> getfindAlldataA (Pageable pageable){
+		return listRepository.findAlldataA(pageable);
 	}
 
 	//検索、ページング
-	public Page<Data> getsearchword(DataRequest dataRequest,Pageable pageable) {
+	public Page<Listdata> getsearchword(DataRequest dataRequest,Pageable pageable) {
 			DataRequest word =new DataRequest();
 			String keyword=word.setKeyword(dataRequest.getKeyword());
-			return dataRepository.searchword(keyword,pageable);
+			return listRepository.searchword(keyword,pageable);
 		}
 
 	//主キー

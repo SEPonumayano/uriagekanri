@@ -8,12 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 
-@Entity(name="main")
+@Entity(name="maindata")
 @Table(name = "maindata")
 public class Data implements Serializable{
 
@@ -21,8 +18,7 @@ public class Data implements Serializable{
 	private static final long serialVersionUID = -870708489937857961L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@TableGenerator(name="seqTable", table="seq_table", pkColumnName="seq_name", pkColumnValue="word_seq", valueColumnName="seq_value")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
@@ -46,17 +42,17 @@ public class Data implements Serializable{
 		this.orderDate = date;
 	}
 
-	//@Column(name = "nameid")
-	//private String nameId;
+	@Column(name = "nameid")
+	private String nameid;
 
 
-	//public String getNameId() {
-	//	return nameId;
-	//}
+	public String getNameid() {
+		return nameid;
+	}
 
-	//public void setNameId(String nameId) {
-		//this.nameId = nameId;
-	//}
+	public void setNameid(String nameid) {
+		this.nameid = nameid;
+	}
 
 	//S番号
 	//名前
@@ -195,17 +191,17 @@ public class Data implements Serializable{
 
 	//顧客ID
 	//結合
-	@ManyToOne
-	@JoinColumn(name="nameid",referencedColumnName="nameid")
-	private  Clientname nameid;
+	//@ManyToOne
+	//@JoinColumn(name="nameid",referencedColumnName="nameid")
+	//private  Clientname nameid;
 
-	public Clientname getNameid() {
-		return nameid;
-	}
+	//public Clientname getNameid() {
+		//return nameid;
+	//}
 
-	public void setNameid(Clientname nameid) {
-		this.nameid = nameid;
-	}
+	//public void setNameid(Clientname nameid) {
+		//this.nameid = nameid;
+	//}
 
 	//@ManyToOne
 	//@JoinColumn(name="nameid_nameid",referencedColumnName="nameid")
