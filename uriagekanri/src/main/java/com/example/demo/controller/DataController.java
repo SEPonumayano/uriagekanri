@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.dto.DataRequest;
 import com.example.demo.dto.PageWrapper;
+import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
 import com.example.demo.entity.Listdata;
 import com.example.demo.service.DataService;
@@ -36,13 +38,6 @@ import com.example.demo.service.DataService;
 public class DataController {
 	@Autowired
 	DataService dataService;
-
-		final static Map<String,String> SELECT_ITEMS=Collections.unmodifiableMap(new LinkedHashMap<String, String>(){
-			{
-				put("1です","1");
-				put("2です","2");
-			}
-		});
 
 		final static Map<String,String> SELECT_ST=Collections.unmodifiableMap(new LinkedHashMap<String, String>(){
 			{
@@ -83,10 +78,14 @@ public class DataController {
 		//ページング
 		PageWrapper<Listdata> page = new PageWrapper<Listdata>(listde, "/list");
 
+		//顧客選択
+		List<Clientname> clientdd =dataService.getclientselect();
+
 		model.addAttribute("userlist",listde);
 		model.addAttribute("page",page);
 		model.addAttribute("words",page.getContent());
 		model.addAttribute("keyword", key);
+		model.addAttribute("clientdd",clientdd);
 
 		return "/list";
 
@@ -122,11 +121,11 @@ public class DataController {
 	//登録ページ
 	@GetMapping(value = "/add")
 	public String displayAdd(DataRequest form,Model model) {
-		//List<ClientSelect> client =dataService.getclientData();
+		//顧客選択
+		List<Clientname> clientdd =dataService.getclientselect();
 
 		model.addAttribute("dataRequest", new DataRequest());
-		//model.addAttribute("clientD",client);
-		model.addAttribute("selectItems",SELECT_ITEMS);
+		model.addAttribute("clientdd",clientdd);
 		model.addAttribute("selectSt",SELECT_ST);
 		return "/add";
 

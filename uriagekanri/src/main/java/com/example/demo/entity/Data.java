@@ -43,14 +43,14 @@ public class Data implements Serializable{
 	}
 
 	@Column(name = "nameid")
-	private String nameid;
+	private Long nameid;
 
 
-	public String getNameid() {
+	public Long getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(String nameid) {
+	public void setNameid(Long nameid) {
 		this.nameid = nameid;
 	}
 

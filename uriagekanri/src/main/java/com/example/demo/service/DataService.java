@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +11,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DataRequest;
+import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
 import com.example.demo.entity.Listdata;
+import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DataRepository;
 import com.example.demo.repository.ListRepository;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class DataService {
-	//一覧情報
+	//DB情報
 	@Autowired
 	private DataRepository dataRepository;
 
 	@Autowired
 	private ListRepository listRepository;
+
+	@Autowired
+	private ClientRepository clientRepository;
 
 	//一覧表示
 	public Page<Listdata> getfindAlldataA (Pageable pageable){
@@ -36,15 +43,21 @@ public class DataService {
 			return listRepository.searchword(keyword,pageable);
 		}
 
-	//主キー
+	//ID取得
 	public Data findById(Long id) {
 		return dataRepository.findById(id).get();
 	}
 
-	//顧客一覧
-	//public List<ClientSelect> getclientData(){
-		//return clientRepository.clientData();
-	//}
+	//顧客名選択
+	public List<Clientname> getclientselect(){
+		return clientRepository.clientselect();
+	}
+
+	//顧客名検索
+	public Clientname findByIdA(Long nameid) {
+		return clientRepository.findById(nameid).get();
+	}
+
 
 //-----------------------------------------------------------------------------
 
@@ -64,6 +77,7 @@ public class DataService {
 		user.setOrderAmount(dataRequest.getOrderAmount());
 		user.setStatusid(dataRequest.getStatusid());
 		user.setRemark(dataRequest.getRemark());
+		//Clientname select=findByIdA(dataRequest.getNameid());
 
 	}
 

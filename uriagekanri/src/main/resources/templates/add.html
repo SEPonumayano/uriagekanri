@@ -9,12 +9,13 @@
 <form class="item" th:action="@{/create}" th:object="${DataRequest}" th:method="post">
 <dl>
 		<dt>顧客*：</dt>
-		<dd><select id="selectedItem" name="nameid">
-		<option th:each="item:${selectItems}" th:value="${item.value}"  th:text="${item.key}"></option>
-		</select></dd>
-		<!--  <dd><select id="clientItems" name="nameid">
-		<option th:each="clientSelect:${clientD}" th:value="${clientSelect.client}"  th:text="${clientSelect.clientid}"></option>
-		</select></dd>-->
+		<dd>
+		<select id="clientselect" name="nameid">
+		<option></option>
+		<option th:each="clientname: ${clientdd}" th:value="${clientname.nameid}" th:text="${clientname.client}">
+		</option>
+		</select>
+		</dd>
 
 		<dt>受注日：</dt>
 		<dd><input type="date" name="orderDate"></dd>
@@ -47,10 +48,48 @@
 		<dd><select id="selectedSt" name="statusid">
 		<option th:each="item:${selectSt}" th:value="${item.value}"  th:text="${item.key}"></option>
 		</select></dd>
+		<!--  <dd>
+		<select name="steta">
+		<option th:value="" th:text=""></option></select>
+		<script type="text/javascript" th:inline="javascript">
+		window.onload=function(){
+			steta=document.getElumentById("steta");
+
+			nameid=document.getElementById("nameid");
+
+			nameid.onchange=chabgeNameid;
+		}
+
+		function changeNameid(){
+			var changedNameid=nameid.value;
+
+			if(changedNameid=="1"){
+				setClient1();
+			}else{
+				setClient2();
+			}
+		}
+
+		function setClient1(){
+			var client1=[
+				{cd:"",label:"選択してください"},
+				{cd:"",label:""}
+			];
+
+			client.forEach(function(value){
+				var op=document.createElement("option");
+				op.value=value.cd;
+				op.text=value.label;
+				client.appendChild(op);
+			});
+		}
+		</script>
+		</dd>-->
 
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40"></textarea></dd>
 </dl>
+
 <input type="submit" value="確認" style="width:250px;height:20px;">
 <a th:href="@{/list}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
 </form>

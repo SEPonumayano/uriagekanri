@@ -28,27 +28,26 @@ public class DataRequest implements Serializable{
 
 
 	//顧客名ID
-	private String nameid;
+	private Long nameid;
 
-	public String getNameid() {
+	public Long getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(String nameid) {
+	public void setNameid(Long nameid) {
 		this.nameid = nameid;
 	}
 
-	//顧客名ID
-	//private Clientname nameid;
+	//顧客名
+	private String client;
 
-	//public Clientname getNameid() {
-		//return nameid;
-	//}
+	public String getClient() {
+		return client;
+	}
 
-	//public void setNameid(Clientname nameid) {
-		//this.nameid = nameid;
-	//}
-
+	public void setClient(String client) {
+		this.client = client;
+	}
 
 	//受注日
 	private Date orderDate;

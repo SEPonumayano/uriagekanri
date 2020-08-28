@@ -23,7 +23,14 @@
 	</div>
 	</div>
 <br/>
-
+<!-- 顧客選択 -->
+<div>
+<select id="client" name="clientsss">
+<option th:each="clientname: ${clientdd}" th:value="${clientname.nameid}" th:text="${clientname.client}">
+</option>
+</select>
+</div>
+<br/>
 <!-- ページング -->
 
 	<div th:fragment='paginationbar'>
