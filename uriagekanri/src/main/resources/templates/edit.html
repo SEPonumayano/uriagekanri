@@ -8,6 +8,7 @@
 <p>製造部売上管理システム：案件編集</p>
 <form class="item" th:action="@{/{id}/createe(id=*{id})}" th:object="${dataRequest}"
 		th:method="post">
+
 <dl>
 		<dt>顧客*：</dt>
 		<dd th:text="*{nameid}"></dd>
@@ -40,13 +41,30 @@
 		<dd><input type="text" name="orderAmount" th:field="*{orderAmount}" maxlength="12"></dd>
 
 		<dt>ステータス：</dt>
-		<dd><select id="selectedSt" name="statusid">
-		<option th:each="item:${selectSt}" th:value="${item.value}"  th:text="${item.key}"></option>
-		</select></dd>
+		<dd th:switch="*{nameid}">
+		<select th:case="1" name="statusid">
+		<option></option>
+		<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		</option>
+		</select>
+
+		<select th:case="2" name="statusid">
+		<option></option>
+		<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}"></option>
+		</select>
+
+		<select th:case="3" name="statusid">
+		<option></option>
+		<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}"></option>
+		</select>
+
+		<select th:case="*"><option></option></select>
+		</dd>
 
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40" th:field="*{remark}"></textarea></dd>
 </dl>
+
 <input type="hidden" th:field="*{id}">
 <input type="hidden" th:field="*{nameid}">
 

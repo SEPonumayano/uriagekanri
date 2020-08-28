@@ -11,9 +11,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.DataRequest;
+import com.example.demo.entity.Client1Ste;
+import com.example.demo.entity.Client2Ste;
+import com.example.demo.entity.Client3Ste;
 import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
 import com.example.demo.entity.Listdata;
+import com.example.demo.repository.Client1Repository;
+import com.example.demo.repository.Client2Repository;
+import com.example.demo.repository.Client3Repository;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.DataRepository;
 import com.example.demo.repository.ListRepository;
@@ -30,6 +36,16 @@ public class DataService {
 
 	@Autowired
 	private ClientRepository clientRepository;
+
+	@Autowired
+	private Client1Repository client1Repository;
+
+	@Autowired
+	private Client2Repository client2Repository;
+
+	@Autowired
+	private Client3Repository client3Repository;
+
 
 	//一覧表示
 	public Page<Listdata> getfindAlldataA (Pageable pageable){
@@ -56,6 +72,21 @@ public class DataService {
 	//顧客名検索
 	public Clientname findByIdA(Long nameid) {
 		return clientRepository.findById(nameid).get();
+	}
+
+	//ステータス1
+	public List<Client1Ste> getclientSte1(){
+		return client1Repository.clientSte1();
+	}
+
+	//ステータス2
+	public List<Client2Ste> getclientSte2(){
+		return client2Repository.clientSte2();
+	}
+
+	//ステータス3
+	public List<Client3Ste> getclientSte3(){
+		return client3Repository.clientSte3();
 	}
 
 

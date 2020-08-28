@@ -7,10 +7,11 @@
 <body>
 <p>製造部売上管理システム：案件登録</p>
 <form class="item" th:action="@{/create}" th:object="${DataRequest}" th:method="post">
+<div class="pulldownadd">
 <dl>
 		<dt>顧客*：</dt>
 		<dd>
-		<select id="clientselect" name="nameid">
+		<select class="clientselect" name="nameid" required="required">
 		<option></option>
 		<option th:each="clientname: ${clientdd}" th:value="${clientname.nameid}" th:text="${clientname.client}">
 		</option>
@@ -45,50 +46,65 @@
 		<dd><input type="text" name="orderAmount" maxlength="12"></dd>
 
 		<dt>ステータス：</dt>
-		<dd><select id="selectedSt" name="statusid">
-		<option th:each="item:${selectSt}" th:value="${item.value}"  th:text="${item.key}"></option>
-		</select></dd>
-		<!--  <dd>
-		<select name="steta">
-		<option th:value="" th:text=""></option></select>
-		<script type="text/javascript" th:inline="javascript">
-		window.onload=function(){
-			steta=document.getElumentById("steta");
+		<dd>
+		<!-- ここ未完成だよ -->
 
-			nameid=document.getElementById("nameid");
+		<select id="1" class="clientsteadd" name="statusid">
+		<option></option>
+		<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		</option>
+		</select>
 
-			nameid.onchange=chabgeNameid;
-		}
+		<select id="2" class="clientsteadd" name="statusid">
+		<option></option>
+		<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}">
+		</option>
+		</select>
 
-		function changeNameid(){
-			var changedNameid=nameid.value;
+		<select id="3" class="clientsteadd" name="statusid">
+		<option></option>
+		<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}">
+		</option>
+		</select>
 
-			if(changedNameid=="1"){
-				setClient1();
-			}else{
-				setClient2();
-			}
-		}
-
-		function setClient1(){
-			var client1=[
-				{cd:"",label:"選択してください"},
-				{cd:"",label:""}
-			];
-
-			client.forEach(function(value){
-				var op=document.createElement("option");
-				op.value=value.cd;
-				op.text=value.label;
-				client.appendChild(op);
-			});
-		}
-		</script>
-		</dd>-->
+		</dd>
 
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40"></textarea></dd>
-</dl>
+</dl></div>
+
+<!--jQueryに変更してね（書き直し）  -->
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',function(){
+
+	//ステータス非表示
+	var allSubBoxes=document.getElementsByClassName("clientsteadd");
+	for(var i=0; i<allSubBoxes.length;i++){
+		allSubBoxes[i].style.display='none';
+	}
+
+	//顧客名ごとにステータスを切り替える
+	var mainBoxes=document.getElementsByClassName('pulldownadd');
+	for(var i=0; i<mainBoxes.length;i++){
+
+		var clientselect=mainBoxes[i].getElementsByClassName("clientselect");
+
+		clientselect[0].onchange=function(){
+			var subBox=this.parentNode.getElementsByClassName("clientsteadd");
+
+		for(var j=0;j<subBox.length;j++){
+			subBox[j].style.display='none';
+		}
+
+		//指定されたステータスの表示
+		if(this.value){
+			var targetSub=document.getElementById(this.value);
+			targetSub.style.display='inline';
+		}
+		}
+	}
+});
+</script>
 
 <input type="submit" value="確認" style="width:250px;height:20px;">
 <a th:href="@{/list}"><button type="button" style="width:250px;height:20px;">戻る</button></a>

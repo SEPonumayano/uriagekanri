@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Client1Ste;
+import com.example.demo.entity.Client3Ste;
+
 
 @Repository
-public interface Client1Repository extends JpaRepository<Client1Ste, Long>{
+public interface Client3Repository extends JpaRepository<Client3Ste, Long>{
 
-	@Query(value="SELECT * FROM client1",nativeQuery=true)
-	List<Client1Ste> clientSte1();
+	@Query(value="SELECT * FROM client3",nativeQuery=true)
+	List<Client3Ste> clientSte3();
 
 }

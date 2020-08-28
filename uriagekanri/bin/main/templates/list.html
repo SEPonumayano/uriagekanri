@@ -24,12 +24,60 @@
 	</div>
 <br/>
 <!-- 顧客選択 -->
-<div>
-<select id="client" name="clientsss">
+<div class="pulldownset">
+<select class="clientste">
+<option></option>
 <option th:each="clientname: ${clientdd}" th:value="${clientname.nameid}" th:text="${clientname.client}">
 </option>
 </select>
+<!-- ステータス -->
+<select id="1" class="clientstes">
+<option></option>
+<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+</option>
+</select>
+<select id="2" class="clientstes">
+<option></option>
+<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}"></option>
+</select>
+<select id="3" class="clientstes">
+<option></option>
+<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}"></option>
+</select>
 </div>
+<script type="text/javascript">
+//HTMLの読み込み直後に実行
+document.addEventListener('DOMContentLoaded', function() {
+
+	//ステータス非表示にする
+	   var allSubBoxes = document.getElementsByClassName("clientstes");
+	   for( var i=0 ; i<allSubBoxes.length ; i++) {
+	      allSubBoxes[i].style.display = 'none';
+	   }
+
+   //顧客名ごとにステータスを切り替え
+   var mainBoxes = document.getElementsByClassName('pulldownset');
+   for( var i=0 ; i<mainBoxes.length ; i++) {
+
+      var clientste = mainBoxes[i].getElementsByClassName("clientste");
+      clientste[0].onchange = function () {
+
+         var subBox = this.parentNode.getElementsByClassName("clientstes");
+         for( var j=0 ; j<subBox.length ; j++) {
+            subBox[j].style.display = 'none';
+         }
+
+         //指定されたステータスの表示
+         if( this.value ) {
+            var targetSub = document.getElementById( this.value );
+            targetSub.style.display = 'inline';
+         }
+      }
+
+   }
+
+});
+</script>
 <br/>
 <!-- ページング -->
 
@@ -63,7 +111,7 @@
 
 <table border="1">
 <tr>
-<th>ID</th>
+<th>No</th>
 <th>nameID</th>
 <th>受注日</th>
 <th>S番号</th>

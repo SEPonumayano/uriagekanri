@@ -16,6 +16,7 @@ public class DataRequest implements Serializable{
 		return this.keyword = keyword;
 	}
 
+	//ID
 	private Long id;
 
 	public Long getId() {

@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,6 +24,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.dto.DataRequest;
 import com.example.demo.dto.PageWrapper;
+import com.example.demo.entity.Client1Ste;
+import com.example.demo.entity.Client2Ste;
+import com.example.demo.entity.Client3Ste;
 import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
 import com.example.demo.entity.Listdata;
@@ -39,13 +39,7 @@ public class DataController {
 	@Autowired
 	DataService dataService;
 
-		final static Map<String,String> SELECT_ST=Collections.unmodifiableMap(new LinkedHashMap<String, String>(){
-			{
-				put("1です","1");
-				put("2です","2");
-			}
-		});
-
+	//日付
 	@InitBinder("DataRequest")
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy/MM/dd");
@@ -74,18 +68,25 @@ public class DataController {
 			listde =dataService.getsearchword(dataRequest,pageable);
 		}
 
-
 		//ページング
 		PageWrapper<Listdata> page = new PageWrapper<Listdata>(listde, "/list");
 
 		//顧客選択
 		List<Clientname> clientdd =dataService.getclientselect();
 
+		//ステータス
+		List<Client1Ste> ste1 =dataService.getclientSte1();
+		List<Client2Ste> ste2 =dataService.getclientSte2();
+		List<Client3Ste> ste3 =dataService.getclientSte3();
+
 		model.addAttribute("userlist",listde);
 		model.addAttribute("page",page);
 		model.addAttribute("words",page.getContent());
 		model.addAttribute("keyword", key);
 		model.addAttribute("clientdd",clientdd);
+		model.addAttribute("ste1",ste1);
+		model.addAttribute("ste2",ste2);
+		model.addAttribute("ste3",ste3);
 
 		return "/list";
 
@@ -124,9 +125,18 @@ public class DataController {
 		//顧客選択
 		List<Clientname> clientdd =dataService.getclientselect();
 
+		//ステータス
+		List<Client1Ste> ste1 =dataService.getclientSte1();
+		List<Client2Ste> ste2 =dataService.getclientSte2();
+		List<Client3Ste> ste3 =dataService.getclientSte3();
+
+
 		model.addAttribute("dataRequest", new DataRequest());
 		model.addAttribute("clientdd",clientdd);
-		model.addAttribute("selectSt",SELECT_ST);
+		model.addAttribute("ste1",ste1);
+		model.addAttribute("ste2",ste2);
+		model.addAttribute("ste3",ste3);
+
 		return "/add";
 
 	}
@@ -163,8 +173,17 @@ public class DataController {
 		public String displayEdit(@PathVariable("id") Long id,Model model,DataRequest form) {
 			Data user =dataService.findById(id);
 
+
+			//ステータス
+			List<Client1Ste> ste1 =dataService.getclientSte1();
+			List<Client2Ste> ste2 =dataService.getclientSte2();
+			List<Client3Ste> ste3 =dataService.getclientSte3();
+
 			model.addAttribute("dataRequest",user);
-			model.addAttribute("selectSt",SELECT_ST);
+			model.addAttribute("ste1",ste1);
+			model.addAttribute("ste2",ste2);
+			model.addAttribute("ste3",ste3);
+
 			return "/edit";
 		}
 
