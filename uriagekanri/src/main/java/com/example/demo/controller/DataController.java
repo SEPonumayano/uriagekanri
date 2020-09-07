@@ -63,6 +63,7 @@ public class DataController {
 
 		if(key==null) {
 			listde =dataService.getfindAlldataA(pageable);
+
 		}
 		else {
 			listde =dataService.getsearchword(dataRequest,pageable);
@@ -152,6 +153,8 @@ public class DataController {
 	//登録確認ページ
 	@RequestMapping(value="/addCheck" ,method=RequestMethod.POST)
 	public String addCheck(@ModelAttribute DataRequest dataRequest, Model model) {
+
+
 
 		model.addAttribute("DataRequest",  dataRequest);
 

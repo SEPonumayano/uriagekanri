@@ -42,6 +42,7 @@ public class Data implements Serializable{
 		this.orderDate = date;
 	}
 
+	//顧客名
 	@Column(name = "nameid")
 	private Long nameid;
 
@@ -55,7 +56,6 @@ public class Data implements Serializable{
 	}
 
 	//S番号
-	//名前
 	@Column(name = "snumber")
 	private String sNumber;
 
@@ -155,13 +155,13 @@ public class Data implements Serializable{
 
 	//ステータス
 	@Column(name = "statusid")
-	private int statusid;
+	private Long statusid;
 
-	public int getStatusid() {
+	public Long getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(int statusid) {
+	public void setStatusid(Long statusid) {
 		this.statusid = statusid;
 	}
 
@@ -187,47 +187,6 @@ public class Data implements Serializable{
 	public void setDelete_flg(String delete_flg) {
 		this.delete_flg=delete_flg;
 	}
-
-
-	//顧客ID
-	//結合
-	//@ManyToOne
-	//@JoinColumn(name="nameid",referencedColumnName="nameid")
-	//private  Clientname nameid;
-
-	//public Clientname getNameid() {
-		//return nameid;
-	//}
-
-	//public void setNameid(Clientname nameid) {
-		//this.nameid = nameid;
-	//}
-
-	//@ManyToOne
-	//@JoinColumn(name="nameid_nameid",referencedColumnName="nameid")
-	//private  Clientname clientname;
-
-	//public String getClientname() {
-		//return clientname;
-	//}
-
-	//public void setClientname(String nameid) {
-		//this.nameid = nameid;
-	//}
-
-//,referencedColumnName="nameid"/ (fetch = FetchType.LAZY)
-	//@ManyToOne
-	//@JoinColumn(name="nameid")
-	//private  Clientname nameid;
-
-	//public Clientname getNameid() {
-		//return nameid;
-	//}
-
-	//public void setNameid(Clientname nameid) {
-		//this.nameid = nameid;
-	//}
-
 
 
 

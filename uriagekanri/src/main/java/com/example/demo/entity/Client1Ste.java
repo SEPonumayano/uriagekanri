@@ -16,15 +16,17 @@ public class Client1Ste implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "statusid")
-	private int statusid;
+	private Long statusid;
 
-	public int getStatusid() {
+	public Long getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(int statusid) {
+	public void setStatusid(Long statusid) {
 		this.statusid = statusid;
 	}
+
+	//statusidをlongに書き換えてるからエラーが出たらint戻す
 
 
 	@Column(name="stname")

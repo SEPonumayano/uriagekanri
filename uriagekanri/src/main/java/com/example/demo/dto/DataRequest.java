@@ -158,13 +158,13 @@ public class DataRequest implements Serializable{
 
 
 	//ステータス
-	private int statusid;
+	private Long statusid;
 
-	public int getStatusid() {
+	public  Long getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(int statusid) {
+	public void setStatusid(Long statusid) {
 		this.statusid = statusid;
 	}
 

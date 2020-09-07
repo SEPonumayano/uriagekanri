@@ -168,6 +168,7 @@ public class Listdata implements Serializable{
 			this.statusid = statusid;
 		}
 
+
 		//備考
 		@Column(name = "remark")
 		private String remark;
@@ -206,30 +207,6 @@ public class Listdata implements Serializable{
 			this.nameid = nameid;
 		}
 
-		//@ManyToOne
-		//@JoinColumn(name="nameid_nameid",referencedColumnName="nameid")
-		//private  Clientname clientname;
-
-		//public String getClientname() {
-			//return clientname;
-		//}
-
-		//public void setClientname(String nameid) {
-			//this.nameid = nameid;
-		//}
-
-	//,referencedColumnName="nameid"/ (fetch = FetchType.LAZY)
-		//@ManyToOne
-		//@JoinColumn(name="nameid")
-		//private  Clientname nameid;
-
-		//public Clientname getNameid() {
-			//return nameid;
-		//}
-
-		//public void setNameid(Clientname nameid) {
-			//this.nameid = nameid;
-		//}
 
 
 }

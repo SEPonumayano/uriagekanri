@@ -21,6 +21,7 @@ import com.example.demo.repository.Client1Repository;
 import com.example.demo.repository.Client2Repository;
 import com.example.demo.repository.Client3Repository;
 import com.example.demo.repository.ClientRepository;
+import com.example.demo.repository.ClientsRepository;
 import com.example.demo.repository.DataRepository;
 import com.example.demo.repository.ListRepository;
 
@@ -46,11 +47,15 @@ public class DataService {
 	@Autowired
 	private Client3Repository client3Repository;
 
+	@Autowired
+	private ClientsRepository clientsRepository;
+
 
 	//一覧表示
 	public Page<Listdata> getfindAlldataA (Pageable pageable){
 		return listRepository.findAlldataA(pageable);
 	}
+
 
 	//検索、ページング
 	public Page<Listdata> getsearchword(DataRequest dataRequest,Pageable pageable) {
@@ -88,6 +93,17 @@ public class DataService {
 	public List<Client3Ste> getclientSte3(){
 		return client3Repository.clientSte3();
 	}
+
+	//public void selectStatus(DataRequest dataRequest) {
+		//DataRequest nameids=new DataRequest();
+
+		//Client1Ste ste1 =new Client1Ste();
+	//	if(nameids.getNameid()==1) {
+		//	ste1.findById(dataRequest.getStatusid());
+
+			//ここ定義してないから使えない
+		//}
+	//}
 
 
 //-----------------------------------------------------------------------------

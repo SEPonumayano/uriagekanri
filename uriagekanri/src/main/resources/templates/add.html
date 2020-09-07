@@ -2,18 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 <p>製造部売上管理システム：案件登録</p>
 <form class="item" th:action="@{/create}" th:object="${DataRequest}" th:method="post">
-<div class="pulldownadd">
+
 <dl>
+
 		<dt>顧客*：</dt>
 		<dd>
-		<select class="clientselect" name="nameid" required="required">
-		<option></option>
-		<option th:each="clientname: ${clientdd}" th:value="${clientname.nameid}" th:text="${clientname.client}">
+		<select name="nameid" >
+		<option selected="selected"></option>
+		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
 		</option>
 		</select>
 		</dd>
@@ -47,63 +49,53 @@
 
 		<dt>ステータス：</dt>
 		<dd>
-		<!-- ここ未完成だよ -->
-
-		<select id="1" class="clientsteadd" name="statusid">
-		<option></option>
-		<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		<select name="statusid">
+		<option selected="selected"></option>
+		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		</option>
+		<option th:each="ste2: ${ste2}" th:class="2" th:value="${ste2.statusid}" th:text="${ste2.stname}">
+		</option>
+		<option th:each="ste3: ${ste3}" th:class="3" th:value="${ste3.statusid}" th:text="${ste3.stname}">
 		</option>
 		</select>
-
-		<select id="2" class="clientsteadd" name="statusid">
-		<option></option>
-		<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}">
-		</option>
-		</select>
-
-		<select id="3" class="clientsteadd" name="statusid">
-		<option></option>
-		<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}">
-		</option>
-		</select>
-
 		</dd>
 
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40"></textarea></dd>
-</dl></div>
+</dl>
 
-<!--jQueryに変更してね（書き直し）  -->
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded',function(){
+<script>
+$(function() {
 
-	//ステータス非表示
-	var allSubBoxes=document.getElementsByClassName("clientsteadd");
-	for(var i=0; i<allSubBoxes.length;i++){
-		allSubBoxes[i].style.display='none';
-	}
+	// 国名が変更されたら発動
+	$('select[name="nameid"]').change(function() {
 
-	//顧客名ごとにステータスを切り替える
-	var mainBoxes=document.getElementsByClassName('pulldownadd');
-	for(var i=0; i<mainBoxes.length;i++){
+		// 選択されている国のクラス名を取得
+		var countyName = $('select[name="nameid"] option:selected').attr("class");
+		console.log(countyName);
 
-		var clientselect=mainBoxes[i].getElementsByClassName("clientselect");
+		// 都市名の要素数を取得
+		var count = $('select[name="statusid"]').children().length;
 
-		clientselect[0].onchange=function(){
-			var subBox=this.parentNode.getElementsByClassName("clientsteadd");
+		// 都市名の要素数分、for文で回す
+		for (var i=0; i<count; i++) {
 
-		for(var j=0;j<subBox.length;j++){
-			subBox[j].style.display='none';
+			var statusid = $('select[name="statusid"] option:eq(' + i + ')');
+
+			if(statusid.attr("class") === countyName) {
+				// 選択した国と同じクラス名だった場合
+
+				// 都市の要素を表示
+				statusid.show();
+			}else {
+				// 選択した国とクラス名が違った場合
+
+				// 都市の要素を非表示
+				statusid.hide();
+			}
 		}
-
-		//指定されたステータスの表示
-		if(this.value){
-			var targetSub=document.getElementById(this.value);
-			targetSub.style.display='inline';
-		}
-		}
-	}
-});
+	})
+})
 </script>
 
 <input type="submit" value="確認" style="width:250px;height:20px;">
