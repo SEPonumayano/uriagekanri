@@ -29,6 +29,7 @@ import com.example.demo.entity.Client2Ste;
 import com.example.demo.entity.Client3Ste;
 import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
+import com.example.demo.entity.Datalist3;
 import com.example.demo.entity.Listdata;
 import com.example.demo.service.DataService;
 
@@ -50,6 +51,8 @@ public class DataController {
 
 	}
 
+
+
 	//一覧表示
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
 	public String topPage(DataRequest dataRequest,@PageableDefault(size=10)Pageable pageable,Model model) {
@@ -57,6 +60,10 @@ public class DataController {
 		//キーワード
 		DataRequest word =new DataRequest();
 		String key=word.setKeyword(dataRequest.getKeyword());
+
+		//3テーブル結合
+
+		List<Datalist3> test=dataService.getTestlist();
 
 		//一覧
 		Page<Listdata> listde;
@@ -88,6 +95,8 @@ public class DataController {
 		model.addAttribute("ste1",ste1);
 		model.addAttribute("ste2",ste2);
 		model.addAttribute("ste3",ste3);
+
+		model.addAttribute("test",test);
 
 		return "/list";
 
@@ -154,9 +163,13 @@ public class DataController {
 	@RequestMapping(value="/addCheck" ,method=RequestMethod.POST)
 	public String addCheck(@ModelAttribute DataRequest dataRequest, Model model) {
 
+		//登録確認、顧客名
+		//Long nameid= dataRequest.getNameid();
+		//List<Clientname> selectclient=dataService.getclientselectname(dataRequest);
 
 
 		model.addAttribute("DataRequest",  dataRequest);
+		//model.addAttribute("selectclient",selectclient);
 
 		return "/addCheck";
 	}
@@ -173,9 +186,11 @@ public class DataController {
 
 	//編集ページ
 		@RequestMapping("/{id}/edit")
-		public String displayEdit(@PathVariable("id") Long id,Model model,DataRequest form) {
+		public String displayEdit(@PathVariable("id") Long id,@ModelAttribute DataRequest dataRequest,Model model,DataRequest form) {
 			Data user =dataService.findById(id);
 
+			//顧客名
+			String client  = dataRequest.getClient();
 
 			//ステータス
 			List<Client1Ste> ste1 =dataService.getclientSte1();
@@ -183,6 +198,7 @@ public class DataController {
 			List<Client3Ste> ste3 =dataService.getclientSte3();
 
 			model.addAttribute("dataRequest",user);
+			model.addAttribute("client",client);
 			model.addAttribute("ste1",ste1);
 			model.addAttribute("ste2",ste2);
 			model.addAttribute("ste3",ste3);
@@ -225,10 +241,14 @@ public class DataController {
 
 	//削除ページ
 	@RequestMapping("/{id}/delete")
-	public String disdelete(@PathVariable("id") Long id,Model model) {
+	public String disdelete(@PathVariable("id") Long id,@ModelAttribute DataRequest dataRequest,Model model) {
 		Data user =dataService.findById(id);
 
+		//顧客名
+		String client  = dataRequest.getClient();
+
 		model.addAttribute("dataRequest",user);
+		model.addAttribute("client",client);
 		return "/delete";
 	}
 

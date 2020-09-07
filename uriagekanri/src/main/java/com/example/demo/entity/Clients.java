@@ -7,10 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
-@NamedNativeQuery(name="test",query="select * from maindata join clients on maindata.nameid=clients.nameid")
 
 @Entity
 @Table(name = "clients")

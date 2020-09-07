@@ -16,6 +16,7 @@ import com.example.demo.entity.Client2Ste;
 import com.example.demo.entity.Client3Ste;
 import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
+import com.example.demo.entity.Datalist3;
 import com.example.demo.entity.Listdata;
 import com.example.demo.repository.Client1Repository;
 import com.example.demo.repository.Client2Repository;
@@ -23,6 +24,7 @@ import com.example.demo.repository.Client3Repository;
 import com.example.demo.repository.ClientRepository;
 import com.example.demo.repository.ClientsRepository;
 import com.example.demo.repository.DataRepository;
+import com.example.demo.repository.Datalist3Repository;
 import com.example.demo.repository.ListRepository;
 
 @Service
@@ -49,6 +51,15 @@ public class DataService {
 
 	@Autowired
 	private ClientsRepository clientsRepository;
+
+	@Autowired
+	private Datalist3Repository datalist3Repository;
+
+
+	//3テーブル結合（テスト）
+	public List<Datalist3> getTestlist(){
+		return datalist3Repository.testlist();
+	}
 
 
 	//一覧表示
@@ -94,16 +105,13 @@ public class DataService {
 		return client3Repository.clientSte3();
 	}
 
-	//public void selectStatus(DataRequest dataRequest) {
-		//DataRequest nameids=new DataRequest();
+	//登録確認、顧客名取得
+	public List<Clientname> getclientselectname(DataRequest dataRequest){
+		DataRequest word =new DataRequest();
+		Long clientnameid=word.getNameid();
+		return clientRepository.clientselectname(clientnameid);
+	}
 
-		//Client1Ste ste1 =new Client1Ste();
-	//	if(nameids.getNameid()==1) {
-		//	ste1.findById(dataRequest.getStatusid());
-
-			//ここ定義してないから使えない
-		//}
-	//}
 
 
 //-----------------------------------------------------------------------------
@@ -204,5 +212,6 @@ public class DataService {
 
 			dataRepository.save(user);
 		}
+
 
 }

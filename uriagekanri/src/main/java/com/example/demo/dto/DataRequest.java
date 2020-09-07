@@ -6,6 +6,8 @@ import java.sql.Date;
 
 public class DataRequest implements Serializable{
 
+
+	//キーワード
 	private String keyword;
 
 	public String getKeyword() {

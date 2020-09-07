@@ -9,7 +9,7 @@
 <form class="item" th:action="@{/creatt}" th:object="${dataRequest}" th:method="post">
 <dl>
 <dt>顧客*：</dt>
-		<dd th:text="*{nameid}"></dd>
+		<dd th:text="*{client}"></dd>
 
 		<dt>受注日：</dt>
 		<dd th:text="*{orderDate}"></dd>
@@ -60,9 +60,10 @@
 
 <input type="hidden" th:field="*{id}">
 
+
 <input type="submit"  value="登録" style="width:250px;height:20px;">
 <a th:href="@{/{id}/edit(id=*{id})}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
-
+<!-- 戻った時顧客名乗るようにする -->
 
 </form>
 </body>

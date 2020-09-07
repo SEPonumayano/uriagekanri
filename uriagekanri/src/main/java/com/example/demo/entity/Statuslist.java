@@ -7,13 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQuery;
+import javax.persistence.Table;
 
 //一覧表示、ステータス部分
 
 @Entity(name="statuslist")
-@NamedNativeQuery(name="clients", query = "select client,stname from(maindata join clientname on maindata.nameid=clientname.nameid)join cliens on maindata.statusid=clients.statusid where clients.nameid=clientname.nameid order by maindata.id ASC")
-public class Statuslist extends Listdata implements Serializable{;
+@Table(name="clients")
+//@NamedNativeQuery(name="clients", query = "select client,stname from(maindata join clientname on maindata.nameid=clientname.nameid)join cliens on maindata.statusid=clients.statusid where clients.nameid=clientname.nameid order by maindata.id ASC")
+public class Statuslist implements Serializable{;
+
+//クラス継承 extends Listdata
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
