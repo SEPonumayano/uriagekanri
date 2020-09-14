@@ -45,11 +45,11 @@ public class DataController {
 	//日付
 	@InitBinder("DataRequest")
 	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, "DateRequest.upDate",new CustomDateEditor(dateFormat,true));
 
-		binder.setAllowedFields("dateRequest.orderDate","dateRequest.deliveryDesignatedDate","dateRequest.deliveryDate");
+		binder.setAllowedFields("dateRequest.orderDate","dateRequest.deliveryDesignatedDate","dateRequest.deliveryDate","dateRequest.billing_date");
 
 	}
 
@@ -78,6 +78,7 @@ public class DataController {
 		else {
 			listde =dataService.getSearchlist(dataRequest,pageable);
 		}
+
 
 		//ページング
 		//PageWrapper<Listdata> page = new PageWrapper<Listdata>(listde, "/list");
@@ -110,36 +111,46 @@ public class DataController {
 	@RequestMapping(value ="/{keyword}/list" ,method = RequestMethod.POST)
 		public String search(@ModelAttribute DataRequest dataRequest,@Validated Listdata listdata,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
 
+		//検索値
 			DataRequest word =new DataRequest();
 			String keyword=word.setKeyword(dataRequest.getKeyword());
+			int nameid=dataRequest.getNameid();
+			int statusid=dataRequest.getStatusid();
 
-			//Page<Listdata> seachpage=null;
-
-			//if(keyword.isEmpty()) {
-			//	seachpage=dataService.getfindAlldataA(pageable);
-			//}
-			//else {
-				//seachpage = dataService.getsearchword(dataRequest,pageable);
-			//}
 
 			Page<Datalist3> listde;
 
-			if(keyword==null) {
+			if(keyword.isEmpty()&& statusid==99&&nameid==0) {
 				listde =dataService.getTestlist(pageable);
-
+			}
+			else if(statusid==99&&nameid==0) {
+				listde =dataService.getSeachKey(dataRequest,pageable);
+			}
+			else if(statusid==99) {
+				listde =dataService.getSeachKeyNameid(dataRequest,pageable);
 			}
 			else {
 				listde =dataService.getSearchlist(dataRequest,pageable);
 			}
 
-
-			//PageWrapper<Listdata> page = new PageWrapper<Listdata>(seachpage, "/user/list");
 			PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listde, "/list");
+
+			//顧客選択
+			List<Clientname> clientdd =dataService.getclientselect();
+
+			//ステータス
+			List<Client1Ste> ste1 =dataService.getclientSte1();
+			List<Client2Ste> ste2 =dataService.getclientSte2();
+			List<Client3Ste> ste3 =dataService.getclientSte3();
 
 			model.addAttribute("test",listde );
 			model.addAttribute("keyword",keyword );
 			model.addAttribute("page", page);
 			model.addAttribute("words",page.getContent());
+			model.addAttribute("clientdd",clientdd);
+			model.addAttribute("ste1",ste1);
+			model.addAttribute("ste2",ste2);
+			model.addAttribute("ste3",ste3);
 
 			return "/list";
 		}
@@ -199,11 +210,21 @@ public class DataController {
 	@RequestMapping(value="/addCheck" ,method=RequestMethod.POST)
 	public String addCheck(@Validated@ModelAttribute DataRequest dataRequest,BindingResult result,Model model) {
 
-		Date orderDate=dataRequest.getOrderDate();
+		Date orderdate=dataRequest.getOrderDate();
 
-		if(orderDate==null) {
-			dataRequest.setOrderDate(null);
+		String orderstr=null;
+		Date orderDate=null;
+
+		if(orderdate==null) {
+			SimpleDateFormat dateFormat=new SimpleDateFormat(null);
+			orderstr=dateFormat.format(orderdate);
+			orderDate=dateFormat.parse(orderstr);
 		}
+		//if(orderdate==null) {
+		//	orderdate=null;
+		//	dataRequest.setOrderDate(orderdate);
+		//}
+
 
 		int nameid=dataRequest.getNameid();
 

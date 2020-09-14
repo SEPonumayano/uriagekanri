@@ -3,6 +3,7 @@
 <head>
 <link rel="stylesheet" th:href="@{/css/NewFile.css}"/>
 <meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <title>一覧</title>
 </head>
 <body>
@@ -15,6 +16,22 @@
 		<!-- 住所検索 -->
 	<div class="serch">
 	<form class="seach" th:action="@{/{key}/list(key=keyword)}" th:object="${DataRequest}" th:method="post">
+	<div class="clientSt">顧客名：</div>
+	<select name="nameid" >
+		<option th:value="0"></option>
+		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
+		</option>
+		</select>
+	<div class="statusSt">ステータス：</div>
+	<select name="statusid">
+		<option selected="selected" th:value="99"></option>
+		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		</option>
+		<option th:each="ste2: ${ste2}" th:class="2" th:value="${ste2.statusid}" th:text="${ste2.stname}">
+		</option>
+		<option th:each="ste3: ${ste3}" th:class="3" th:value="${ste3.statusid}" th:text="${ste3.stname}">
+		</option>
+		</select>
 	<div class="seachsubTitle">件名：</div>
 	<div class="seachsubTitle"><input class="seachword" type="text" name="keyword" th:value="${keyword}" style="width:200px">
 	<input class="sss" type=submit value="検索" style="width:204px">
@@ -23,60 +40,38 @@
 	</div>
 	</div>
 <br/>
-<!-- 顧客選択 -->
-<div class="pulldownset">
-<select class="clientste">
-<option></option>
-<option th:each="clientname: ${clientdd}" th:value="${clientname.nameid}" th:text="${clientname.client}">
-</option>
-</select>
-<!-- ステータス -->
-<select id="1" class="clientstes">
-<option></option>
-<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
-</option>
-</select>
-<select id="2" class="clientstes">
-<option></option>
-<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}"></option>
-</select>
-<select id="3" class="clientstes">
-<option></option>
-<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}"></option>
-</select>
-</div>
-<script type="text/javascript">
-//HTMLの読み込み直後に実行
-document.addEventListener('DOMContentLoaded', function() {
+<script>
+$(function() {
 
-	//ステータス非表示にする
-	   var allSubBoxes = document.getElementsByClassName("clientstes");
-	   for( var i=0 ; i<allSubBoxes.length ; i++) {
-	      allSubBoxes[i].style.display = 'none';
-	   }
+	// 国名が変更されたら発動
+	$('select[name="nameid"]').change(function() {
 
-   //顧客名ごとにステータスを切り替え
-   var mainBoxes = document.getElementsByClassName('pulldownset');
-   for( var i=0 ; i<mainBoxes.length ; i++) {
+		// 選択されている国のクラス名を取得
+		var countyName = $('select[name="nameid"] option:selected').attr("class");
+		console.log(countyName);
 
-      var clientste = mainBoxes[i].getElementsByClassName("clientste");
-      clientste[0].onchange = function () {
+		// 都市名の要素数を取得
+		var count = $('select[name="statusid"]').children().length;
 
-         var subBox = this.parentNode.getElementsByClassName("clientstes");
-         for( var j=0 ; j<subBox.length ; j++) {
-            subBox[j].style.display = 'none';
-         }
+		// 都市名の要素数分、for文で回す
+		for (var i=0; i<count; i++) {
 
-         //指定されたステータスの表示
-         if( this.value ) {
-            var targetSub = document.getElementById( this.value );
-            targetSub.style.display = 'inline';
-         }
-      }
+			var statusid = $('select[name="statusid"] option:eq(' + i + ')');
 
-   }
+			if(statusid.attr("class") === countyName) {
+				// 選択した国と同じクラス名だった場合
 
-});
+				// 都市の要素を表示
+				statusid.show();
+			}else {
+				// 選択した国とクラス名が違った場合
+
+				// 都市の要素を非表示
+				statusid.hide();
+			}
+		}
+	})
+})
 </script>
 <br/>
 <!-- ページング -->
@@ -85,25 +80,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	<ul>
 	<li th:class="${page.firstPage}?'disabled':''" style="display:inline">
     <span th:if='${page.firstPage}'>＜＜</span>
-    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},page=0,size=${page.size})}'>＜＜</a>
+    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=0,size=${page.size})}'>＜＜</a>
     </li>
 	<li th:class="${page.hasPreviousPage}? '' :'disabled'" style="display:inline">
 	<span th:if='${not page.hasPreviousPage}'>＜</span>
-	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.number-2},size=${page.size})}'>＜</a>
+	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number-2},size=${page.size})}'>＜</a>
 	</li>
 	<li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''" style="display:inline">
 	<span th:if='${item.current}' th:text='${item.number}'>1</span>
-	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},page=${item.number-1},size=${page.size})}'>
+	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${item.number-1},size=${page.size})}'>
     <span th:text='${item.number}'>1</span>
     </a>
 	</li>
 	<li th:class="${page.hasNextPage}? '' : 'disabled'" style="display:inline">
     <span th:if='${not page.hasNextPage}'>＞</span>
-    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.number},size=${page.size})}'>＞</a>
+    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number},size=${page.size})}'>＞</a>
     </li>
     <li th:class="${page.lastPage}? 'disabled' : ''" style="display:inline">
     <span th:if='${page.lastPage}'>＞＞</span>
-    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
+    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
     </li>
 	</ul></div>
 
@@ -126,9 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <td th:text="${nameStat.count}+${page.size}*(${page.number}-1)"></td>
 <td th:text="${datalist.client}"></td>
 <td th:text="${datalist.orderdate}"></td>
-<!--  <td th:text="${datalist.snumber}"></td>--><td th:text="${datalist.snumber}"></td>
+<td th:text="${datalist.snumber}"></td>
 <td th:text="${datalist.subtitle}"></td>
-<td th:text="${datalist.items}"></td>
+<td th:text="${datalist.items}+'式'"></td>
 <td th:text="${datalist.deliveryDesignatedDate}+'/'+${datalist.deliveryDate}"></td>
 <td th:text="${datalist.billingDate}"></td>
 <td th:text="${datalist.estimatedAmount}+'/'+${datalist.order_amount}"></td>
@@ -156,25 +151,25 @@ document.addEventListener('DOMContentLoaded', function() {
 	<ul>
 	<li th:class="${page.firstPage}?'disabled':''" style="display:inline">
     <span th:if='${page.firstPage}'>＜＜</span>
-    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},page=0,size=${page.size})}'>＜＜</a>
+    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=0,size=${page.size})}'>＜＜</a>
     </li>
 	<li th:class="${page.hasPreviousPage}? '' :'disabled'" style="display:inline">
 	<span th:if='${not page.hasPreviousPage}'>＜</span>
-	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.number-2},size=${page.size})}'>＜</a>
+	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number-2},size=${page.size})}'>＜</a>
 	</li>
 	<li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''" style="display:inline">
 	<span th:if='${item.current}' th:text='${item.number}'>1</span>
-	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},page=${item.number-1},size=${page.size})}'>
+	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${item.number-1},size=${page.size})}'>
     <span th:text='${item.number}'>1</span>
     </a>
 	</li>
 	<li th:class="${page.hasNextPage}? '' : 'disabled'" style="display:inline">
     <span th:if='${not page.hasNextPage}'>＞</span>
-    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.number},size=${page.size})}'>＞</a>
+    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number},size=${page.size})}'>＞</a>
     </li>
     <li th:class="${page.lastPage}? 'disabled' : ''" style="display:inline">
     <span th:if='${page.lastPage}'>＞＞</span>
-    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
+    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
     </li>
 	</ul></div>
 

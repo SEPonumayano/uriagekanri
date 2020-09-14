@@ -35,7 +35,6 @@ public class DataRequest implements Serializable{
 
 
 	//顧客名ID
-	//@NotEmpty(message="必須")
 	private int nameid;
 
 	public int getNameid() {
@@ -191,6 +190,7 @@ public class DataRequest implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
 
 	//ステータス名
 	private String stname;

@@ -50,15 +50,6 @@ public class Datalist3 implements Serializable{
 	//S番号
 	private String snumber;
 
-
-//	public String getnumber() {
-//		return snumber;
-//	}
-
-//	public void setsnumber(String snumber) {
-//		this.snumber = snumber;
-//	}
-
 	public String getSnumber() {
 		return snumber;
 	}

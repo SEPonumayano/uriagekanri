@@ -50,7 +50,7 @@
 		<dt>ステータス：</dt>
 		<dd>
 		<select name="statusid">
-		<option selected="selected"></option>
+		<option selected="selected" th:value="0"></option>
 		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}">
 		</option>
 		<option th:each="ste2: ${ste2}" th:class="2" th:value="${ste2.statusid}" th:text="${ste2.stname}">

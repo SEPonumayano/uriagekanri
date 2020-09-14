@@ -64,7 +64,24 @@ public class DataService {
 	public Page<Datalist3> getSearchlist(DataRequest dataRequest, Pageable pageable) {
 		DataRequest word =new DataRequest();
 		String keyword=word.setKeyword(dataRequest.getKeyword());
+		int nameid=dataRequest.getNameid();
+		int statusid=dataRequest.getStatusid();
+
+		return datalist3Repository.searchlist(keyword,nameid,statusid,pageable);
+	}
+
+	public Page<Datalist3> getSeachKey(DataRequest dataRequest, Pageable pageable) {
+		DataRequest word =new DataRequest();
+		String keyword=word.setKeyword(dataRequest.getKeyword());
+
 		return datalist3Repository.searchlist(keyword,pageable);
+	}
+
+	public Page<Datalist3> getSeachKeyNameid(DataRequest dataRequest,Pageable pageable) {
+		DataRequest word =new DataRequest();
+		String keyword=word.setKeyword(dataRequest.getKeyword());
+		int nameid=dataRequest.getNameid();
+		return datalist3Repository.searchKeyNameid(keyword,nameid,pageable);
 	}
 
 
@@ -74,7 +91,7 @@ public class DataService {
 	}
 
 
-	//検索、ページング
+	//検索、ページング(使ってないやつ)
 	public Page<Listdata> getsearchword(DataRequest dataRequest,Pageable pageable) {
 			DataRequest word =new DataRequest();
 			String keyword=word.setKeyword(dataRequest.getKeyword());
@@ -231,6 +248,8 @@ public class DataService {
 
 			dataRepository.save(user);
 		}
+
+
 
 
 
