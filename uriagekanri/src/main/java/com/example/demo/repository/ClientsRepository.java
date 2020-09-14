@@ -8,7 +8,7 @@ import com.example.demo.entity.Statuslist;
 
 
 @Repository
-public interface ClientsRepository extends JpaRepository<Statuslist, Long>{
+public interface ClientsRepository extends JpaRepository<Statuslist, Integer>{
 
 	//一覧表示、ステータス用
 

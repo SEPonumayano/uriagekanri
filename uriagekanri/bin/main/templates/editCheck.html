@@ -39,11 +39,18 @@
 		<dd th:text="*{orderAmount}"></dd>
 
 		<dt>ステータス：</dt>
-		<dd th:text="*{statusid}"></dd>
+		<!--  <dd th:text="*{statusid}"></dd>-->
+		<dd th:switch="*{nameid}">
+		<p th:case="1" th:each="sta1:${sta1}" th:object="${client1Ste}" th:text="${sta1.stname}"></p>
+		<p th:case="2" th:each="sta2:${sta2}" th:object="${client2Ste}" th:text="${sta2.stname}"></p>
+		<p th:case="3" th:each="sta3:${sta3}" th:object="${client3Ste}" th:text="${sta3.stname}"></p>
+		<p th:case="*" ></p>
+		</dd>
 
 		<dt>備考：</dt>
 		<dd th:text="*{remark}"></dd>
 </dl>
+
 
 <input type="hidden" name="nameid" th:field="*{nameid}">
 <input type="hidden" name="orderDate" th:field="*{orderDate}">
@@ -62,7 +69,8 @@
 
 
 <input type="submit"  value="登録" style="width:250px;height:20px;">
-<a th:href="@{/{id}/edit(id=*{id})}"><button type="button" style="width:250px;height:20px;">戻る</button></a>
+<a th:href="@{/{id}/edit(id=*{id})}"><input type="hidden" name="nameid" th:field="*{nameid}">
+<button type="button" style="width:250px;height:20px;">戻る</button></a>
 <!-- 戻った時顧客名乗るようにする -->
 
 </form>

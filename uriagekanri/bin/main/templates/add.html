@@ -7,14 +7,14 @@
 </head>
 <body>
 <p>製造部売上管理システム：案件登録</p>
-<form class="item" th:action="@{/create}" th:object="${DataRequest}" th:method="post">
+<form class="item" th:action="@{addCheck}" th:object="${DataRequest}" th:method="post">
 
 <dl>
 
 		<dt>顧客*：</dt>
 		<dd>
 		<select name="nameid" >
-		<option selected="selected"></option>
+		<option th:value="0"></option>
 		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
 		</option>
 		</select>
@@ -97,6 +97,10 @@ $(function() {
 	})
 })
 </script>
+
+<br/>
+<div class="err" th:if="${validationError}" th:each="error : ${validationError}" th:text="${error}"></div>
+<div th:if="${nameidms}" th:text="${nameidms}"></div>
 
 
 <input type="submit" value="確認" style="width:250px;height:20px;">

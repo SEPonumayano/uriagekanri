@@ -107,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </li>
 	</ul></div>
 
-
 <table border="1">
 <tr>
 <th>No</th>
@@ -123,33 +122,35 @@ document.addEventListener('DOMContentLoaded', function() {
 <th></th>
 <th></th>
 </tr>
-<tr th:each="listdata,nameStat : ${userlist}" th:object="${listdata}">
+<tr th:each="datalist,nameStat:${test}" th:object="${datalist3}">
 <td th:text="${nameStat.count}+${page.size}*(${page.number}-1)"></td>
-<td th:text="${listdata.nameid.client}"></td>
-<td th:text="${listdata.orderDate}"></td>
-<td th:text="${listdata.sNumber}"></td>
-<td th:text="${listdata.subTitle}"></td>
-<td th:text="${listdata.items}"></td>
-<td th:text="${listdata.deliveryDesignatedDate}+'/'+${listdata.deliveryDate}"></td>
-<td th:text="${listdata.billingDate}"></td>
-<td th:text="${listdata.estimatedAmount}+'/'+${listdata.orderAmount}"></td>
-<td th:text="${listdata.statusid}"></td>
+<td th:text="${datalist.client}"></td>
+<td th:text="${datalist.orderdate}"></td>
+<!--  <td th:text="${datalist.snumber}"></td>--><td th:text="${datalist.snumber}"></td>
+<td th:text="${datalist.subtitle}"></td>
+<td th:text="${datalist.items}"></td>
+<td th:text="${datalist.deliveryDesignatedDate}+'/'+${datalist.deliveryDate}"></td>
+<td th:text="${datalist.billingDate}"></td>
+<td th:text="${datalist.estimatedAmount}+'/'+${datalist.order_amount}"></td>
+<td th:text="${datalist.stname}"></td>
 <td>
-<form th:action="@{/{id}/edit(id=*{id})}" th:method="post">
-<input type="hidden" name="id" th:value="${listdata.id}">
-<input type="hidden" name="client" th:value="${listdata.nameid.client}">
+<form th:action="@{/{id}/edit(id=${datalist.id})}" th:method="post">
+<input type="hidden" name="id" th:value="${datalist.id}">
+<input type="hidden" name="client" th:value="${datalist.client}">
 <input type="submit" value="編集">
 </form>
 </td>
 <td>
-<form th:action="@{/{id}/delete(id=*{id})}" th:method="post">
-<input type="hidden" name="id" th:value="${listdata.id}">
-<input type="hidden" name="client" th:value="${listdata.nameid.client}">
+<form th:action="@{/{id}/delete(id=${datalist.id})}" th:method="post">
+<input type="hidden" name="id" th:value="${datalist.id}">
+<input type="hidden" name="client" th:value="${datalist.client}">
 <input type="submit" value="削除"></form>
 </td>
 </tr>
 </table>
-<!-- ページング nameid.client-->
+
+
+<!-- ページング -->
 
 	<div th:fragment='paginationbar'>
 	<ul>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Data;
 
 @Repository
-public interface DataRepository extends JpaRepository<Data, Long>{
+public interface DataRepository extends JpaRepository<Data, Integer>{
 
 }
 

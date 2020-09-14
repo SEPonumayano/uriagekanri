@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Clientname;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Clientname, Long>{
+public interface ClientRepository extends JpaRepository<Clientname, Integer>{
 
 	@Query(value="SELECT * FROM clientname",nativeQuery=true)
 	List<Clientname> clientselect();
@@ -18,6 +18,6 @@ public interface ClientRepository extends JpaRepository<Clientname, Long>{
 
 	//登録確認、顧客名
 	@Query(value="SELECT client FROM clientname WHERE nameid=:clientnameid",nativeQuery=true)
-	List<Clientname> clientselectname(@Param("clientnameid")Long clientnameid);
+	List<Clientname> clientselectname(@Param("clientnameid")int clientnameid);
 
 }

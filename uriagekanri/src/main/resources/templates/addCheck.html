@@ -9,7 +9,7 @@
 <form class="item" th:action="@{/creat}" th:object="${dataRequest}" th:method="post">
 <dl>
 		<dt>顧客*：</dt>
-		<dd th:text="*{nameid}"></dd>
+		<dd th:each="cn:${clientname}" th:object="${clientname}" th:text="${cn.client}"></dd>
 
 		<dt>受注日：</dt>
 		<dd th:text="*{orderDate}"></dd>
@@ -39,7 +39,12 @@
 		<dd th:text="*{orderAmount}"></dd>
 
 		<dt>ステータス：</dt>
-		<dd th:text="*{statusid}"></dd>
+		<dd th:switch="*{nameid}">
+		<p th:case="1" th:each="sta1:${sta1}" th:object="${client1Ste}" th:text="${sta1.stname}"></p>
+		<p th:case="2" th:each="sta2:${sta2}" th:object="${client2Ste}" th:text="${sta2.stname}"></p>
+		<p th:case="3" th:each="sta3:${sta3}" th:object="${client3Ste}" th:text="${sta3.stname}"></p>
+		<p th:case="*" ></p>
+		</dd>
 
 		<dt>備考：</dt>
 		<dd th:text="*{remark}"></dd>

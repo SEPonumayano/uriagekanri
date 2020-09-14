@@ -20,13 +20,13 @@ public class Data implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private int id;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -44,14 +44,14 @@ public class Data implements Serializable{
 
 	//顧客名
 	@Column(name = "nameid")
-	private Long nameid;
+	private int nameid;
 
 
-	public Long getNameid() {
+	public int getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(Long nameid) {
+	public void setNameid(int nameid) {
 		this.nameid = nameid;
 	}
 
@@ -155,13 +155,13 @@ public class Data implements Serializable{
 
 	//ステータス
 	@Column(name = "statusid")
-	private Long statusid;
+	private int statusid;
 
-	public Long getStatusid() {
+	public int getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(Long statusid) {
+	public void setStatusid(int statusid) {
 		this.statusid = statusid;
 	}
 

@@ -15,46 +15,55 @@ public class Datalist3 implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
-	private Long id;
+	private int id;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 	//受注日
-	private Date orderDate;
+	private Date orderdate;
 
-	public Date getOrderDate() {
-		return orderDate;
+	public Date getOrderdate() {
+		return orderdate;
 	}
 
-	public void setOrderDate(Date date) {
-		this.orderDate = date;
+	public void setOrderdate(Date orderdate) {
+		this.orderdate = orderdate;
 	}
 
 	//顧客ID
-	private String nameid;
+	private int nameid;
 
-	public String getNameid() {
+	public int getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(String nameid) {
+	public void setNameid(int nameid) {
 		this.nameid = nameid;
 	}
 
 	//S番号
 	private String snumber;
 
-	public String getsnumber() {
+
+//	public String getnumber() {
+//		return snumber;
+//	}
+
+//	public void setsnumber(String snumber) {
+//		this.snumber = snumber;
+//	}
+
+	public String getSnumber() {
 		return snumber;
 	}
 
-	public void setsnumber(String snumber) {
+	public void setSnumber(String snumber) {
 		this.snumber = snumber;
 	}
 
@@ -126,14 +135,14 @@ public class Datalist3 implements Serializable{
 	}
 
 	//受注金額
-	private String orderAmount;
+	private String order_amount;
 
-	public String getOrderAmount() {
-		return orderAmount;
+	public String getOrder_amount() {
+		return order_amount;
 	}
 
-	public void setOrderAmount(String orderAmount) {
-		this.orderAmount = orderAmount;
+	public void setOrder_amount(String order_amount) {
+		this.order_amount = order_amount;
 	}
 
 

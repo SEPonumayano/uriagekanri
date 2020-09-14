@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.Client1Ste;
 
 @Repository
-public interface Client1Repository extends JpaRepository<Client1Ste, Long>{
+public interface Client1Repository extends JpaRepository<Client1Ste, Integer>{
 
 	@Query(value="SELECT * FROM client1",nativeQuery=true)
 	List<Client1Ste> clientSte1();

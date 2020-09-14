@@ -3,6 +3,10 @@ package com.example.demo.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 
 public class DataRequest implements Serializable{
 
@@ -19,25 +23,26 @@ public class DataRequest implements Serializable{
 	}
 
 	//ID
-	private Long id;
+	private int id;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
 
 	//顧客名ID
-	private Long nameid;
+	//@NotEmpty(message="必須")
+	private int nameid;
 
-	public Long getNameid() {
+	public int getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(Long nameid) {
+	public void setNameid(int nameid) {
 		this.nameid = nameid;
 	}
 
@@ -65,6 +70,7 @@ public class DataRequest implements Serializable{
 
 
 	//S番号
+	@Pattern(regexp="S-[0-9]{4}$" ,message="S番号は「S-4桁の数字」で入力してください")
 	private String sNumber;
 
 	public String getsNumber() {
@@ -77,6 +83,7 @@ public class DataRequest implements Serializable{
 
 
 	//件名
+	@NotEmpty(message="件名は必須項目です")
 	private String subTitle;
 
 	public String getSubTitle() {
@@ -89,6 +96,7 @@ public class DataRequest implements Serializable{
 
 
 	//数量
+	@Size(max=5,message="最大桁数は5桁です。")
 	private String items;
 
 	public String getItems() {
@@ -136,6 +144,7 @@ public class DataRequest implements Serializable{
 
 
 	//見積金額
+	@Size(max=12,message="最大桁数は12桁です。")
 	private String estimatedAmount;
 
 	public String getEstimatedAmount() {
@@ -148,6 +157,7 @@ public class DataRequest implements Serializable{
 
 
 	//受注金額
+	@Size(max=12,message="最大桁数は12桁です。")
 	private String orderAmount;
 
 	public String getOrderAmount() {
@@ -160,13 +170,13 @@ public class DataRequest implements Serializable{
 
 
 	//ステータス
-	private Long statusid;
+	private int statusid;
 
-	public  Long getStatusid() {
+	public  int getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusid(Long statusid) {
+	public void setStatusid(int statusid) {
 		this.statusid = statusid;
 	}
 
@@ -181,6 +191,19 @@ public class DataRequest implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	//ステータス名
+	private String stname;
+
+	public String getStname() {
+		return stname;
+	}
+
+	public void setStname(String stname) {
+		this.stname = stname;
+	}
+
+
 
 
 }

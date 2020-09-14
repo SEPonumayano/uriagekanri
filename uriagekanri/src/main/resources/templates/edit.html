@@ -6,9 +6,9 @@
 </head>
 <body>
 <p>製造部売上管理システム：案件編集</p>
-<form class="item" th:action="@{/{id}/createe(id=*{id})}" th:object="${dataRequest}"
+<form class="item" th:action="@{/{id}/editCheck(id=*{id})}" th:object="${dataRequest}"
 		th:method="post">
-
+<!-- createe -->
 <dl>
 		<dt>顧客*：</dt>
 		<dd th:text="${client}"></dd>
@@ -43,18 +43,18 @@
 		<dt>ステータス：</dt>
 		<dd th:switch="*{nameid}">
 		<select th:case="1" name="statusid">
-		<option></option>
+		<option th:value="0"></option>
 		<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
 		</option>
 		</select>
 
 		<select th:case="2" name="statusid">
-		<option></option>
+		<option th:value="0"></option>
 		<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}"></option>
 		</select>
 
 		<select th:case="3" name="statusid">
-		<option></option>
+		<option th:value="0"></option>
 		<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}"></option>
 		</select>
 
@@ -64,6 +64,8 @@
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40" th:field="*{remark}"></textarea></dd>
 </dl>
+<br/>
+<div class="err" th:if="${validationError}" th:each="error : ${validationError}" th:text="${error}"></div>
 
 <input type="hidden" th:field="*{id}">
 <input type="hidden" th:field="*{nameid}">

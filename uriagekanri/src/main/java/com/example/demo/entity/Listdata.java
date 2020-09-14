@@ -23,13 +23,13 @@ public class Listdata implements Serializable{
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		@TableGenerator(name="seqTable", table="seq_table", pkColumnName="seq_name", pkColumnValue="word_seq", valueColumnName="seq_value")
 		@Column(name = "id")
-		private Long id;
+		private int id;
 
-		public Long getId() {
+		public int getId() {
 			return id;
 		}
 
-		public void setId(Long id) {
+		public void setId(int id) {
 			this.id = id;
 		}
 

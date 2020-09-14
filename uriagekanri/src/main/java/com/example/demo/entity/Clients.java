@@ -50,13 +50,13 @@ public class Clients implements Serializable{
 	}
 
 	@Column(name = "nameid")
-	private Long nameid;
+	private int nameid;
 
-	public Long getNameid() {
+	public int getNameid() {
 		return nameid;
 	}
 
-	public void setNameid(Long nameid) {
+	public void setNameid(int nameid) {
 		this.nameid = nameid;
 	}
 

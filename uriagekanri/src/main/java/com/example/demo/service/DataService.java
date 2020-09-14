@@ -57,12 +57,18 @@ public class DataService {
 
 
 	//3テーブル結合（テスト）
-	public List<Datalist3> getTestlist(){
-		return datalist3Repository.testlist();
+	public Page<Datalist3> getTestlist(Pageable pageable){
+		return datalist3Repository.testlist(pageable);
+	}
+
+	public Page<Datalist3> getSearchlist(DataRequest dataRequest, Pageable pageable) {
+		DataRequest word =new DataRequest();
+		String keyword=word.setKeyword(dataRequest.getKeyword());
+		return datalist3Repository.searchlist(keyword,pageable);
 	}
 
 
-	//一覧表示
+	//一覧表示(今は使ってないやつ)
 	public Page<Listdata> getfindAlldataA (Pageable pageable){
 		return listRepository.findAlldataA(pageable);
 	}
@@ -76,7 +82,7 @@ public class DataService {
 		}
 
 	//ID取得
-	public Data findById(Long id) {
+	public Data findById(int id) {
 		return dataRepository.findById(id).get();
 	}
 
@@ -86,7 +92,7 @@ public class DataService {
 	}
 
 	//顧客名検索
-	public Clientname findByIdA(Long nameid) {
+	public Clientname findByIdA(int nameid) {
 		return clientRepository.findById(nameid).get();
 	}
 
@@ -108,8 +114,21 @@ public class DataService {
 	//登録確認、顧客名取得
 	public List<Clientname> getclientselectname(DataRequest dataRequest){
 		DataRequest word =new DataRequest();
-		Long clientnameid=word.getNameid();
+		int clientnameid=word.getNameid();
 		return clientRepository.clientselectname(clientnameid);
+	}
+
+	//selectステータス名取得
+	public Client1Ste findById1(int statusid) {
+		return client1Repository.findById(statusid).get();
+	}
+
+	public Client2Ste findById2(int statusid) {
+		return client2Repository.findById(statusid).get();
+	}
+
+	public Client3Ste findById3(int statusid) {
+		return client3Repository.findById(statusid).get();
 	}
 
 
@@ -212,6 +231,10 @@ public class DataService {
 
 			dataRepository.save(user);
 		}
+
+
+
+
 
 
 }
