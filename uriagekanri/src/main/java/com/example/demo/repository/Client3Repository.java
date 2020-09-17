@@ -12,7 +12,7 @@ import com.example.demo.entity.Client3Ste;
 @Repository
 public interface Client3Repository extends JpaRepository<Client3Ste, Integer>{
 
-	@Query(value="SELECT * FROM client3",nativeQuery=true)
+	@Query(value="SELECT * FROM client3 where statusid !=0",nativeQuery=true)
 	List<Client3Ste> clientSte3();
 
 }

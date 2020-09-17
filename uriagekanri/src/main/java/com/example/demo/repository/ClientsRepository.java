@@ -1,17 +1,23 @@
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Statuslist;
+import com.example.demo.entity.Datalist3;
 
 
 
 @Repository
-public interface ClientsRepository extends JpaRepository<Statuslist, Integer>{
+public interface ClientsRepository extends JpaRepository<Datalist3, Integer>,JpaSpecificationExecutor<Datalist3>{
+	//Specification用
+		/*private interface Specification<Datalist3> nameContains(int nameidkw){
+			return new Specification<Datalist3>() {
+				@Override
+				public Predicate toPredicate(Root<DataList3> root,CriteriaQuery<?> query,CriteriaBuilder cb) {
+					return cb.like(root.get("nameid"),"%"+nameidkw+"%");
+				}
+			};
 
-	//一覧表示、ステータス用
-
-	//@Query(value="select * from maindata inner join clients on maindata.statusid=clients.statusid where delete_flg=0 and maindata.nameid=clients.nameid order by maindata.id ASC",nativeQuery=true)
-	//List<Statuslist> findAlldataB();
+		}*/
 }

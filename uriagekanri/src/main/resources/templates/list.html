@@ -15,15 +15,15 @@
 	</div>
 		<!-- 住所検索 -->
 	<div class="serch">
-	<form class="seach" th:action="@{/{key}/list(key=keyword)}" th:object="${DataRequest}" th:method="post">
+	<form class="seach" th:action="@{/{key}{nameidkw}{statusidkw}/list(key=keyword,nameidkw=nameidkw,statusidkw=statusidkw)}" th:object="${DataRequest}" th:method="post">
 	<div class="clientSt">顧客名：</div>
-	<select name="nameid" >
+	<select name="nameidkw" >
 		<option th:value="0"></option>
 		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
 		</option>
 		</select>
 	<div class="statusSt">ステータス：</div>
-	<select name="statusid">
+	<select name="statusidkw">
 		<option selected="selected" th:value="99"></option>
 		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}">
 		</option>
@@ -44,30 +44,30 @@
 $(function() {
 
 	// 国名が変更されたら発動
-	$('select[name="nameid"]').change(function() {
+	$('select[name="nameidkw"]').change(function() {
 
 		// 選択されている国のクラス名を取得
-		var countyName = $('select[name="nameid"] option:selected').attr("class");
+		var countyName = $('select[name="nameidkw"] option:selected').attr("class");
 		console.log(countyName);
 
 		// 都市名の要素数を取得
-		var count = $('select[name="statusid"]').children().length;
+		var count = $('select[name="statusidkw"]').children().length;
 
 		// 都市名の要素数分、for文で回す
 		for (var i=0; i<count; i++) {
 
-			var statusid = $('select[name="statusid"] option:eq(' + i + ')');
+			var statusidkw = $('select[name="statusidkw"] option:eq(' + i + ')');
 
-			if(statusid.attr("class") === countyName) {
+			if(statusidkw.attr("class") === countyName) {
 				// 選択した国と同じクラス名だった場合
 
 				// 都市の要素を表示
-				statusid.show();
+				statusidkw.show();
 			}else {
 				// 選択した国とクラス名が違った場合
 
 				// 都市の要素を非表示
-				statusid.hide();
+				statusidkw.hide();
 			}
 		}
 	})
@@ -80,28 +80,29 @@ $(function() {
 	<ul>
 	<li th:class="${page.firstPage}?'disabled':''" style="display:inline">
     <span th:if='${page.firstPage}'>＜＜</span>
-    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=0,size=${page.size})}'>＜＜</a>
+    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},size=${page.size})}'>＜＜</a>
     </li>
 	<li th:class="${page.hasPreviousPage}? '' :'disabled'" style="display:inline">
 	<span th:if='${not page.hasPreviousPage}'>＜</span>
-	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number-2},size=${page.size})}'>＜</a>
+	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${page.number-2},size=${page.size})}'>＜</a>
 	</li>
 	<li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''" style="display:inline">
 	<span th:if='${item.current}' th:text='${item.number}'>1</span>
-	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${item.number-1},size=${page.size})}'>
+	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${item.number-1},size=${page.size})}'>
     <span th:text='${item.number}'>1</span>
     </a>
 	</li>
 	<li th:class="${page.hasNextPage}? '' : 'disabled'" style="display:inline">
     <span th:if='${not page.hasNextPage}'>＞</span>
-    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number},size=${page.size})}'>＞</a>
+    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${page.number},size=${page.size})}'>＞</a>
     </li>
     <li th:class="${page.lastPage}? 'disabled' : ''" style="display:inline">
     <span th:if='${page.lastPage}'>＞＞</span>
-    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
+    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
     </li>
 	</ul></div>
 
+<p th:text="'今の顧客番号は'+${nameidkw}"></p>
 <table border="1">
 <tr>
 <th>No</th>
@@ -117,7 +118,7 @@ $(function() {
 <th></th>
 <th></th>
 </tr>
-<tr th:each="datalist,nameStat:${test}" th:object="${datalist3}">
+<tr th:each="datalist,nameStat:${listdate}" th:object="${datalist3}">
 <td th:text="${nameStat.count}+${page.size}*(${page.number}-1)"></td>
 <td th:text="${datalist.client}"></td>
 <td th:text="${datalist.orderdate}"></td>
@@ -151,25 +152,25 @@ $(function() {
 	<ul>
 	<li th:class="${page.firstPage}?'disabled':''" style="display:inline">
     <span th:if='${page.firstPage}'>＜＜</span>
-    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=0,size=${page.size})}'>＜＜</a>
+    <a th:if='${not page.firstPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=0,size=${page.size})}'>＜＜</a>
     </li>
 	<li th:class="${page.hasPreviousPage}? '' :'disabled'" style="display:inline">
 	<span th:if='${not page.hasPreviousPage}'>＜</span>
-	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number-2},size=${page.size})}'>＜</a>
+	<a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${page.number-2},size=${page.size})}'>＜</a>
 	</li>
 	<li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''" style="display:inline">
 	<span th:if='${item.current}' th:text='${item.number}'>1</span>
-	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${item.number-1},size=${page.size})}'>
+	<a th:if='${not item.current}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${item.number-1},size=${page.size})}'>
     <span th:text='${item.number}'>1</span>
     </a>
 	</li>
 	<li th:class="${page.hasNextPage}? '' : 'disabled'" style="display:inline">
     <span th:if='${not page.hasNextPage}'>＞</span>
-    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.number},size=${page.size})}'>＞</a>
+    <a th:if='${page.hasNextPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${page.number},size=${page.size})}'>＞</a>
     </li>
     <li th:class="${page.lastPage}? 'disabled' : ''" style="display:inline">
     <span th:if='${page.lastPage}'>＞＞</span>
-    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},nameid=${nameid},statusid=${statusid},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
+    <a th:if='${not page.lastPage}' th:href='@{${page.url}(keyword=${keyword},nameidkw=${nameidkw},statusidkw=${statusidkw},page=${page.totalPages - 1},size=${page.size})}'>＞＞</a>
     </li>
 	</ul></div>
 

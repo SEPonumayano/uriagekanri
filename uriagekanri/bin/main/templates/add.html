@@ -50,7 +50,7 @@
 		<dt>ステータス：</dt>
 		<dd>
 		<select name="statusid">
-		<option selected="selected" th:value="0"></option>
+		<option th:value="0"></option>
 		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}">
 		</option>
 		<option th:each="ste2: ${ste2}" th:class="2" th:value="${ste2.statusid}" th:text="${ste2.stname}">
@@ -58,7 +58,7 @@
 		<option th:each="ste3: ${ste3}" th:class="3" th:value="${ste3.statusid}" th:text="${ste3.stname}">
 		</option>
 		</select>
-		</dd>
+		</dd><!--  selected="selected"  -->
 
 		<dt>備考：</dt>
 		<dd><textarea name="remark" rows="4" cols="40"></textarea></dd>
@@ -101,6 +101,7 @@ $(function() {
 <br/>
 <div class="err" th:if="${validationError}" th:each="error : ${validationError}" th:text="${error}"></div>
 <div th:if="${nameidms}" th:text="${nameidms}"></div>
+<div th:if="${snumberms}" th:text="${snumberms}"></div>
 
 
 <input type="submit" value="確認" style="width:250px;height:20px;">

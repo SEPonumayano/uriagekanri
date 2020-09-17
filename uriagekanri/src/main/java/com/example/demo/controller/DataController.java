@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.demo.dto.DataRequest;
 import com.example.demo.dto.PageWrapper;
@@ -32,18 +33,33 @@ import com.example.demo.entity.Client3Ste;
 import com.example.demo.entity.Clientname;
 import com.example.demo.entity.Data;
 import com.example.demo.entity.Datalist3;
-import com.example.demo.entity.Listdata;
 import com.example.demo.service.DataService;
 
 
 @Controller
-@SessionAttributes("keyword")
+//@SessionAttributes("keyword")
+
+//Specification用
+	/*private interface Specification<Datalist3> nameContains(int nameidkw){
+		return new Specification<Datalist3>() {
+			@Override
+			public Predicate toPredicate(Root<DataList3> root,CriteriaQuery<?> query,CriteriaBuilder cb) {
+				return cb.like(root.get("nameid"),"%"+nameidkw+"%");
+			}
+		};
+
+	}*/
+
 public class DataController {
 	@Autowired
 	DataService dataService;
 
 	//日付
-	@InitBinder("DataRequest")
+	@InitBinder
+	public void initBinder (WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+	}
+	/*@InitBinder("DataRequest")
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
@@ -51,7 +67,7 @@ public class DataController {
 
 		binder.setAllowedFields("dateRequest.orderDate","dateRequest.deliveryDesignatedDate","dateRequest.deliveryDate","dateRequest.billing_date");
 
-	}
+	}*/
 
 
 
@@ -62,6 +78,9 @@ public class DataController {
 		//キーワード
 		DataRequest word =new DataRequest();
 		String key=word.setKeyword(dataRequest.getKeyword());
+		int nameidkw=word.setNameidkw(dataRequest.getNameidkw());
+
+		int statusidkw=word.setStatusidkw(dataRequest.getStatusidkw());
 
 		//3テーブル結合
 
@@ -69,20 +88,27 @@ public class DataController {
 
 		//一覧
 		//Page<Listdata> listde;getfindAlldataA(pageable);
-		Page<Datalist3> listde;
+		Page<Datalist3> listdate;
 
 		if(key==null) {
-			listde =dataService.getTestlist(pageable);
+			listdate =dataService.getTestlist(pageable);
 
 		}
-		else {
-			listde =dataService.getSearchlist(dataRequest,pageable);
+		else if(statusidkw==99||statusidkw==0&&nameidkw==0) {
+			listdate =dataService.getSeachKey(dataRequest,pageable);
 		}
+		else if(statusidkw==0||statusidkw==99) {
+			listdate =dataService.getSeachKeyNameid(dataRequest,pageable);
+		}
+		else {
+			listdate =dataService.getSearchlist(dataRequest,pageable);
+		}
+
 
 
 		//ページング
 		//PageWrapper<Listdata> page = new PageWrapper<Listdata>(listde, "/list");
-		PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listde, "/list");
+		PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listdate, "/list");
 
 		//顧客選択
 		List<Clientname> clientdd =dataService.getclientselect();
@@ -92,10 +118,13 @@ public class DataController {
 		List<Client2Ste> ste2 =dataService.getclientSte2();
 		List<Client3Ste> ste3 =dataService.getclientSte3();
 
-		model.addAttribute("test",listde);
+
+		model.addAttribute("listdate",listdate);
 		model.addAttribute("page",page);
 		model.addAttribute("words",page.getContent());
 		model.addAttribute("keyword", key);
+		model.addAttribute("nameidkw",nameidkw );
+		model.addAttribute("statusidkw",statusidkw );
 		model.addAttribute("clientdd",clientdd);
 		model.addAttribute("ste1",ste1);
 		model.addAttribute("ste2",ste2);
@@ -108,32 +137,35 @@ public class DataController {
 	}
 
 	//住所検索
-	@RequestMapping(value ="/{keyword}/list" ,method = RequestMethod.POST)
-		public String search(@ModelAttribute DataRequest dataRequest,@Validated Listdata listdata,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
+	@RequestMapping(value ="/{keyword}{nameidkw}{statusidkw}/list" ,method = RequestMethod.POST)
+		public String search(@ModelAttribute DataRequest dataRequest,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
 
 		//検索値
 			DataRequest word =new DataRequest();
 			String keyword=word.setKeyword(dataRequest.getKeyword());
-			int nameid=dataRequest.getNameid();
-			int statusid=dataRequest.getStatusid();
+			int nameidkw=word.setNameidkw(dataRequest.getNameidkw());
+			int statusidkw=word.setStatusidkw(dataRequest.getStatusidkw());
 
 
-			Page<Datalist3> listde;
+			Page<Datalist3> listdate;
 
-			if(keyword.isEmpty()&& statusid==99&&nameid==0) {
-				listde =dataService.getTestlist(pageable);
+			//全部Null
+			if(keyword==null&& statusidkw==99&&nameidkw==0) {
+				listdate =dataService.getTestlist(pageable);
 			}
-			else if(statusid==99&&nameid==0) {
-				listde =dataService.getSeachKey(dataRequest,pageable);
+			//keyあり、name,statusなし
+			else if((statusidkw==0||statusidkw==99)&&nameidkw==0) {
+				listdate =dataService.getSeachKey(dataRequest,pageable);
 			}
-			else if(statusid==99) {
-				listde =dataService.getSeachKeyNameid(dataRequest,pageable);
+			//keyあり、
+			else if(statusidkw==0||statusidkw==99) {
+				listdate =dataService.getSeachKeyNameid(dataRequest,pageable);
 			}
 			else {
-				listde =dataService.getSearchlist(dataRequest,pageable);
+				listdate =dataService.getSearchlist(dataRequest,pageable);
 			}
 
-			PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listde, "/list");
+			PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listdate, "/list");
 
 			//顧客選択
 			List<Clientname> clientdd =dataService.getclientselect();
@@ -143,8 +175,11 @@ public class DataController {
 			List<Client2Ste> ste2 =dataService.getclientSte2();
 			List<Client3Ste> ste3 =dataService.getclientSte3();
 
-			model.addAttribute("test",listde );
+
+			model.addAttribute("listdate",listdate );
 			model.addAttribute("keyword",keyword );
+			model.addAttribute("nameidkw",nameidkw);
+			model.addAttribute("statusidkw",statusidkw );
 			model.addAttribute("page", page);
 			model.addAttribute("words",page.getContent());
 			model.addAttribute("clientdd",clientdd);
@@ -210,23 +245,8 @@ public class DataController {
 	@RequestMapping(value="/addCheck" ,method=RequestMethod.POST)
 	public String addCheck(@Validated@ModelAttribute DataRequest dataRequest,BindingResult result,Model model) {
 
-		Date orderdate=dataRequest.getOrderDate();
-
-		String orderstr=null;
-		Date orderDate=null;
-
-		if(orderdate==null) {
-			SimpleDateFormat dateFormat=new SimpleDateFormat(null);
-			orderstr=dateFormat.format(orderdate);
-			orderDate=dateFormat.parse(orderstr);
-		}
-		//if(orderdate==null) {
-		//	orderdate=null;
-		//	dataRequest.setOrderDate(orderdate);
-		//}
-
-
 		int nameid=dataRequest.getNameid();
+		String snumber=dataRequest.getsNumber();
 
 		//入力確認
 		if (result.hasErrors()||nameid==0) {
@@ -239,6 +259,15 @@ public class DataController {
 			if(nameid==0) {
 				nameidms="顧客名を選択してください";
 			}
+
+			String snumberms=null;
+			Pattern p =Pattern.compile("^S-[0-9]{4}$");
+			Matcher m =p.matcher(snumber);
+			if(snumber.isEmpty()==false && m.find()==false) {
+				snumberms="S番号は「S-4桁の数字」で入力してください";
+			}
+
+
 			//顧客選択
 			List<Clientname> clientdd =dataService.getclientselect();
 
@@ -253,8 +282,13 @@ public class DataController {
 			model.addAttribute("ste3",ste3);
 			model.addAttribute("validationError", errorList);
 			model.addAttribute("nameidms",nameidms);
+			model.addAttribute("snumberms",snumberms);
 			return "/add";
 		}
+
+		//金額変換
+		String estimated=dataRequest.getEstimatedAmount();
+
 
 		//顧客名取得
 		//int nameid=dataRequest.getNameid();
@@ -283,6 +317,7 @@ public class DataController {
 		model.addAttribute("sta1",select1);
 		model.addAttribute("sta2",select2);
 		model.addAttribute("sta3",select3);
+
 
 
 		return "/addCheck";
@@ -350,6 +385,16 @@ public class DataController {
 			for(ObjectError error:result.getAllErrors()) {
 				errorList.add(error.getDefaultMessage());
 			}
+
+			String snumber=dataRequest.getsNumber();
+			String snumberms=null;
+
+			//S番号エラー
+			Pattern p =Pattern.compile("^S-[0-9]{4}$");
+			Matcher m =p.matcher(snumber);
+			if(snumber.isEmpty()==false && m.find()==false) {
+				snumberms="S番号は「S-4桁の数字」で入力してください";
+			}
 			//顧客名
 			String client  = dataRequest.getClient();
 
@@ -363,6 +408,7 @@ public class DataController {
 			model.addAttribute("ste2",ste2);
 			model.addAttribute("ste3",ste3);
 			model.addAttribute("validationError",errorList);
+			model.addAttribute("snumberms",snumberms);
 			return "/edit";
 		}
 

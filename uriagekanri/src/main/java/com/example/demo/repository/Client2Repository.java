@@ -11,7 +11,7 @@ import com.example.demo.entity.Client2Ste;
 @Repository
 public interface Client2Repository extends JpaRepository<Client2Ste, Integer>{
 
-	@Query(value="SELECT * FROM client2",nativeQuery=true)
+	@Query(value="SELECT * FROM client2 where statusid !=0",nativeQuery=true)
 	List<Client2Ste> clientSte2();
 
 }

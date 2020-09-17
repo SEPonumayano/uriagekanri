@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 
 public class DataRequest implements Serializable{
 
 
-	//キーワード
+	//キーワード：件名
 	private String keyword;
 
 	public String getKeyword() {
@@ -20,6 +19,28 @@ public class DataRequest implements Serializable{
 
 	public String setKeyword(String keyword) {
 		return this.keyword = keyword;
+	}
+
+	//キーワード：顧客ID
+	private int nameidkw;
+
+	public int getNameidkw() {
+		return nameidkw;
+	}
+
+	public int setNameidkw(int nameidkw) {
+		return this.nameidkw = nameidkw;
+	}
+
+	//キーワード：ステータスID
+	private int statusidkw;
+
+	public int getStatusidkw() {
+		return statusidkw;
+	}
+
+	public int setStatusidkw(int statusidkw) {
+		return this.statusidkw = statusidkw;
 	}
 
 	//ID
@@ -69,7 +90,7 @@ public class DataRequest implements Serializable{
 
 
 	//S番号
-	@Pattern(regexp="S-[0-9]{4}$" ,message="S番号は「S-4桁の数字」で入力してください")
+	//@Pattern(regexp="S-[0-9]{4}$" ,message="S番号は「S-4桁の数字」で入力してください")
 	private String sNumber;
 
 	public String getsNumber() {
@@ -202,6 +223,7 @@ public class DataRequest implements Serializable{
 	public void setStname(String stname) {
 		this.stname = stname;
 	}
+
 
 
 

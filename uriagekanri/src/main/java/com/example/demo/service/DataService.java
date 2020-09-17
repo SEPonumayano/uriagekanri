@@ -56,18 +56,30 @@ public class DataService {
 	private Datalist3Repository datalist3Repository;
 
 
+	//Specification用
+	/*private Specification<Datalist3> nameContains(int nameidkw){
+		return new Specification<Datalist3>() {
+			@Override
+			public Predicate toPredicate(Root<DataList3> root,CriteriaQuery<?> query,CriteriaBuilder cb) {
+				return cb.like(root.get("nameid"),"%"+nameidkw+"%");
+			}
+		};
+
+	}*/
+
 	//3テーブル結合（テスト）
 	public Page<Datalist3> getTestlist(Pageable pageable){
 		return datalist3Repository.testlist(pageable);
 	}
 
+	//検索用
 	public Page<Datalist3> getSearchlist(DataRequest dataRequest, Pageable pageable) {
 		DataRequest word =new DataRequest();
 		String keyword=word.setKeyword(dataRequest.getKeyword());
-		int nameid=dataRequest.getNameid();
-		int statusid=dataRequest.getStatusid();
+		int nameidkw=word.setNameidkw(dataRequest.getNameidkw());
+		int statusidkw=word.setStatusidkw(dataRequest.getStatusidkw());
 
-		return datalist3Repository.searchlist(keyword,nameid,statusid,pageable);
+		return datalist3Repository.searchlist(keyword,nameidkw,statusidkw,pageable);
 	}
 
 	public Page<Datalist3> getSeachKey(DataRequest dataRequest, Pageable pageable) {
@@ -80,8 +92,8 @@ public class DataService {
 	public Page<Datalist3> getSeachKeyNameid(DataRequest dataRequest,Pageable pageable) {
 		DataRequest word =new DataRequest();
 		String keyword=word.setKeyword(dataRequest.getKeyword());
-		int nameid=dataRequest.getNameid();
-		return datalist3Repository.searchKeyNameid(keyword,nameid,pageable);
+		int nameidkw=word.setNameidkw(dataRequest.getNameidkw());
+		return datalist3Repository.searchKeyNameid(keyword,nameidkw,pageable);
 	}
 
 
