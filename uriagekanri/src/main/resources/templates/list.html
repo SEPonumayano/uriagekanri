@@ -15,17 +15,20 @@
 	</div>
 		<!-- 住所検索 -->
 	<div class="serch">
-	<form class="seach" th:action="@{/{key}{nameidkw}{statusidkw}/list(key=keyword,nameidkw=nameidkw,statusidkw=statusidkw)}" th:object="${DataRequest}" th:method="post">
+	<!--  <form class="seach" th:action="@{/{key}/{nameidkw}/{statusidkw}/list(key=keyword,nameidkw=nameidkw,statusidkw=statusidkw)}" th:object="${DataRequest}" th:method="post">-->
+	<form class="seach" th:action="@{/seachlist}" th:object="${DataRequest}" th:method="post">
 	<div class="clientSt">顧客名：</div>
 	<select name="nameidkw" >
 		<option th:value="0"></option>
-		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
+		<!-- <option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
+		</option> -->
+		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}" th:selected="${clientname.nameid==nameidkw}">
 		</option>
 		</select>
 	<div class="statusSt">ステータス：</div>
 	<select name="statusidkw">
-		<option selected="selected" th:value="99"></option>
-		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		<option th:value="99"></option>
+		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}" th:selected="${ste1.statusid==statusidkw}">
 		</option>
 		<option th:each="ste2: ${ste2}" th:class="2" th:value="${ste2.statusid}" th:text="${ste2.stname}">
 		</option>
@@ -37,7 +40,7 @@
 	<input class="sss" type=submit value="検索" style="width:204px">
 	</div>
 	</form>
-	</div>
+	</div><!-- selected="selected" -->
 	</div>
 <br/>
 <script>
@@ -102,7 +105,8 @@ $(function() {
     </li>
 	</ul></div>
 
-<p th:text="'今の顧客番号は'+${nameidkw}"></p>
+<!--<p th:text="'今の顧客番号は'+${nameidkw}"></p>
+<p th:text="'今のステータス番号は'+${statusidkw}"></p>-->
 <table border="1">
 <tr>
 <th>No</th>
@@ -124,7 +128,9 @@ $(function() {
 <td th:text="${datalist.orderdate}"></td>
 <td th:text="${datalist.snumber}"></td>
 <td th:text="${datalist.subtitle}"></td>
-<td th:text="${datalist.items}+'式'"></td>
+<!--  <td th:text="${datalist.items}+'式'"></td>-->
+<td th:if="${datalist.items}!=null" th:text="${#numbers.formatInteger(datalist.items,1,'COMMA')}+'式'"></td>
+<td th:unless="${datalist.items}!=null"></td>
 <td th:text="${datalist.deliveryDesignatedDate}+'/'+${datalist.deliveryDate}"></td>
 <td th:text="${datalist.billingDate}"></td>
 <td th:text="${datalist.estimatedAmount}+'/'+${datalist.order_amount}"></td>
@@ -142,6 +148,7 @@ $(function() {
 <input type="hidden" name="client" th:value="${datalist.client}">
 <input type="submit" value="削除"></form>
 </td>
+
 </tr>
 </table>
 

@@ -70,13 +70,13 @@ public class Datalist3 implements Serializable{
 	}
 
 	//数量
-	private String items;
+	private Integer items;
 
-	public String getItems() {
+	public Integer getItems() {
 		return items;
 	}
 
-	public void setItems(String items) {
+	public void setItems(Integer items) {
 		this.items = items;
 	}
 

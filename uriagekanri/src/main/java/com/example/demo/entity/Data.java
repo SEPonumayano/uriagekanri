@@ -81,13 +81,13 @@ public class Data implements Serializable{
 
 	//数量
 	@Column(name = "items")
-	private String items;
+	private Integer items;
 
-	public String getItems() {
+	public Integer getItems() {
 		return items;
 	}
 
-	public void setItems(String items) {
+	public void setItems(Integer items) {
 		this.items = items;
 	}
 

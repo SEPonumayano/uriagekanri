@@ -59,17 +59,6 @@ public class DataController {
 	public void initBinder (WebDataBinder binder) {
 		binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
 	}
-	/*@InitBinder("DataRequest")
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, "DateRequest.upDate",new CustomDateEditor(dateFormat,true));
-
-		binder.setAllowedFields("dateRequest.orderDate","dateRequest.deliveryDesignatedDate","dateRequest.deliveryDate","dateRequest.billing_date");
-
-	}*/
-
-
 
 	//一覧表示
 	@RequestMapping (value = "/list",method = RequestMethod.GET)
@@ -82,32 +71,34 @@ public class DataController {
 
 		int statusidkw=word.setStatusidkw(dataRequest.getStatusidkw());
 
-		//3テーブル結合
-
-		//List<Datalist3> test=dataService.getTestlist();
 
 		//一覧
 		//Page<Listdata> listde;getfindAlldataA(pageable);
 		Page<Datalist3> listdate;
 
-		if(key==null) {
+		//全部Null
+		if(key==null&&statusidkw==0&&nameidkw==0) {
 			listdate =dataService.getTestlist(pageable);
-
 		}
-		else if(statusidkw==99||statusidkw==0&&nameidkw==0) {
+		//keyあり、name,statusなし
+		else if(statusidkw==99&&nameidkw==0) {
 			listdate =dataService.getSeachKey(dataRequest,pageable);
 		}
-		else if(statusidkw==0||statusidkw==99) {
+		//keyあり、nameあり、statusなし
+		else if(nameidkw!=0&&statusidkw==99) {
 			listdate =dataService.getSeachKeyNameid(dataRequest,pageable);
 		}
-		else {
+		//keyどっちでも、nameあり、statusなし
+		else if(nameidkw!=0&&statusidkw!=99) {
 			listdate =dataService.getSearchlist(dataRequest,pageable);
 		}
-
+		else {
+			listdate =dataService.getTestlist(pageable);
+			//listdate =dataService.getSearchlist(dataRequest,pageable);
+		}
 
 
 		//ページング
-		//PageWrapper<Listdata> page = new PageWrapper<Listdata>(listde, "/list");
 		PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listdate, "/list");
 
 		//顧客選択
@@ -130,14 +121,14 @@ public class DataController {
 		model.addAttribute("ste2",ste2);
 		model.addAttribute("ste3",ste3);
 
-		//model.addAttribute("test",test);
 
 		return "/list";
 
 	}
 
 	//住所検索
-	@RequestMapping(value ="/{keyword}{nameidkw}{statusidkw}/list" ,method = RequestMethod.POST)
+	//@RequestMapping(value ="/{keyword}/{nameidkw}/{statusidkw}/list" ,method = RequestMethod.POST)
+	@RequestMapping(value ="/seachlist" ,method = RequestMethod.POST)
 		public String search(@ModelAttribute DataRequest dataRequest,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
 
 		//検索値
@@ -150,20 +141,26 @@ public class DataController {
 			Page<Datalist3> listdate;
 
 			//全部Null
-			if(keyword==null&& statusidkw==99&&nameidkw==0) {
+			if(keyword==null&&statusidkw==0&&nameidkw==0) {
 				listdate =dataService.getTestlist(pageable);
 			}
-			//keyあり、name,statusなし
-			else if((statusidkw==0||statusidkw==99)&&nameidkw==0) {
+			//keyどっちでも、name,statusなし
+			else if(statusidkw==99&&nameidkw==0) {
 				listdate =dataService.getSeachKey(dataRequest,pageable);
 			}
-			//keyあり、
-			else if(statusidkw==0||statusidkw==99) {
+			//keyどっちでも、nameあり、statusなし
+			else if(nameidkw!=0&&statusidkw==99) {
 				listdate =dataService.getSeachKeyNameid(dataRequest,pageable);
 			}
-			else {
+			//keyどっちでも、nameあり、statusなし
+			else if(nameidkw!=0&&statusidkw!=99) {
 				listdate =dataService.getSearchlist(dataRequest,pageable);
 			}
+			else {
+				listdate =dataService.getTestlist(pageable);
+				//listdate =dataService.getSearchlist(dataRequest,pageable);
+			}
+
 
 			PageWrapper<Datalist3> page = new PageWrapper<Datalist3>(listdate, "/list");
 
@@ -248,8 +245,12 @@ public class DataController {
 		int nameid=dataRequest.getNameid();
 		String snumber=dataRequest.getsNumber();
 
+		String snumberms=null;
+		Pattern p =Pattern.compile("^S-[0-9]{4}$");
+		Matcher m =p.matcher(snumber);
+
 		//入力確認
-		if (result.hasErrors()||nameid==0) {
+		if (result.hasErrors()||nameid==0||snumber.isEmpty()==false && m.find()==false) {
 			List<String> errorList = new ArrayList<String>();
 			for (ObjectError error : result.getAllErrors()) {
 				errorList.add(error.getDefaultMessage());
@@ -260,9 +261,6 @@ public class DataController {
 				nameidms="顧客名を選択してください";
 			}
 
-			String snumberms=null;
-			Pattern p =Pattern.compile("^S-[0-9]{4}$");
-			Matcher m =p.matcher(snumber);
 			if(snumber.isEmpty()==false && m.find()==false) {
 				snumberms="S番号は「S-4桁の数字」で入力してください";
 			}
@@ -285,9 +283,6 @@ public class DataController {
 			model.addAttribute("snumberms",snumberms);
 			return "/add";
 		}
-
-		//金額変換
-		String estimated=dataRequest.getEstimatedAmount();
 
 
 		//顧客名取得
@@ -380,21 +375,24 @@ public class DataController {
 	public String editCheck(@PathVariable int id,@Validated@ModelAttribute DataRequest dataRequest,BindingResult result,Model model) {
 
 		//入力確認
-		if(result.hasErrors()) {
+
+		String snumber=dataRequest.getsNumber();
+		Pattern p =Pattern.compile("^S-[0-9]{4}$");
+		Matcher m =p.matcher(snumber);
+
+		if(result.hasErrors()||snumber.isEmpty()==false && m.find()==false) {
 			List<String>errorList=new ArrayList<String>();
 			for(ObjectError error:result.getAllErrors()) {
 				errorList.add(error.getDefaultMessage());
 			}
 
-			String snumber=dataRequest.getsNumber();
 			String snumberms=null;
 
 			//S番号エラー
-			Pattern p =Pattern.compile("^S-[0-9]{4}$");
-			Matcher m =p.matcher(snumber);
 			if(snumber.isEmpty()==false && m.find()==false) {
 				snumberms="S番号は「S-4桁の数字」で入力してください";
 			}
+
 			//顧客名
 			String client  = dataRequest.getClient();
 

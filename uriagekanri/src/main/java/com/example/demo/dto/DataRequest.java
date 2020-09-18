@@ -6,6 +6,8 @@ import java.sql.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
+
 
 public class DataRequest implements Serializable{
 
@@ -42,6 +44,7 @@ public class DataRequest implements Serializable{
 	public int setStatusidkw(int statusidkw) {
 		return this.statusidkw = statusidkw;
 	}
+
 
 	//ID
 	private int id;
@@ -116,14 +119,14 @@ public class DataRequest implements Serializable{
 
 
 	//数量
-	@Size(max=5,message="最大桁数は5桁です。")
-	private String items;
+	@Range(min=0 , max=99999,message="最大桁数は5桁です。")
+	private Integer items;
 
-	public String getItems() {
+	public Integer getItems() {
 		return items;
 	}
 
-	public void setItems(String items) {
+	public void setItems(Integer items) {
 		this.items = items;
 	}
 

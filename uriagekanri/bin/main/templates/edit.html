@@ -44,18 +44,18 @@
 		<dd th:switch="*{nameid}">
 		<select th:case="1" name="statusid">
 		<option th:value="0"></option>
-		<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}">
+		<option th:each="ste1: ${ste1}" th:value="${ste1.statusid}" th:text="${ste1.stname}" th:selected="${ste1.statusid}==*{statusid}">
 		</option>
 		</select>
 
 		<select th:case="2" name="statusid">
 		<option th:value="0"></option>
-		<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}"></option>
+		<option th:each="ste2: ${ste2}" th:value="${ste2.statusid}" th:text="${ste2.stname}" th:selected="${ste1.statusid}==*{statusid}"></option>
 		</select>
 
 		<select th:case="3" name="statusid">
 		<option th:value="0"></option>
-		<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}"></option>
+		<option th:each="ste3: ${ste3}" th:value="${ste3.statusid}" th:text="${ste3.stname}" th:selected="${ste1.statusid}==*{statusid}" ></option>
 		</select>
 
 		<select th:case="*"><option></option></select>
@@ -66,6 +66,8 @@
 </dl>
 <br/>
 <div class="err" th:if="${validationError}" th:each="error : ${validationError}" th:text="${error}"></div>
+<div th:if="${snumberms}" th:text="${snumberms}"></div>
+
 
 <input type="hidden" th:field="*{id}">
 <input type="hidden" th:field="*{nameid}">

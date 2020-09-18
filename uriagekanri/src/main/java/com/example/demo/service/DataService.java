@@ -86,7 +86,7 @@ public class DataService {
 		DataRequest word =new DataRequest();
 		String keyword=word.setKeyword(dataRequest.getKeyword());
 
-		return datalist3Repository.searchlist(keyword,pageable);
+		return datalist3Repository.searchkey(keyword,pageable);
 	}
 
 	public Page<Datalist3> getSeachKeyNameid(DataRequest dataRequest,Pageable pageable) {
