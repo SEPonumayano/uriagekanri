@@ -1,43 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/css/NewFile.css}"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>製造部売上管理システム：案件登録</title>
 </head>
 <body>
-<p>売上管理システム</p>
+<h1>製造部売上管理システム:案件編集</h1>
 <form class="item" th:action="@{/creatt}" th:object="${dataRequest}" th:method="post">
 <dl>
 <dt>顧客*：</dt>
-		<dd th:text="*{client}"></dd>
+<dd th:if="*{client}==null"></dd>
+		<dd th:unless="*{client}==null" th:text="*{client}"></dd>
 
 		<dt>受注日：</dt>
-		<dd th:text="*{orderDate}"></dd>
+		<dd th:if="*{orderDate}==null">&nbsp;</dd>
+		<dd th:unless="*{orderDate}==null" th:text="*{orderDate}"></dd>
 
 		<dt>S番号：</dt>
-		<dd th:text="*{sNumber}"></dd>
+		<dd th:if="*{sNumber}==null">&nbsp;</dd>
+		<dd th:unless="*{sNumber}==null" th:text="*{sNumber}"></dd>
 
 		<dt>件名*:</dt>
 		<dd th:text="*{subTitle}"></dd>
 
 		<dt>数量：</dt>
-		<!--  <dd th:text="*{items}"></dd>-->
-		<dd th:text="${#numbers.formatInteger(dataRequest.items,1,'COMMA')}">式</dd>
+		<dd th:if="*{items}==0">&nbsp;</dd>
+		<dd th:unless="*{items}==0" th:text="${#numbers.formatInteger(dataRequest.items,1,'COMMA')}">式</dd>
 
 		<dt>納入指定日：</dt>
-		<dd th:text="*{deliveryDesignatedDate}"></dd>
+		<dd th:if="*{deliveryDesignatedDate}==null">&nbsp;</dd>
+		<dd th:unless="*{deliveryDesignatedDate}==null" th:text="*{deliveryDesignatedDate}"></dd>
 
 		<dt>納入日</dt>
-		<dd th:text="*{deliveryDate}"></dd>
+		<dd th:if="*{deliveryDate}==null">&nbsp;</dd>
+		<dd th:unless="*{deliveryDate}==null" th:text="*{deliveryDate}"></dd>
 
 		<dt>請求日</dt>
-		<dd th:text="*{billingDate}"></dd>
+		<dd th:if="*{billingDate}==null">&nbsp;</dd>
+		<dd th:unless="*{billingDate}==null" th:text="*{billingDate}"></dd>
 
 		<dt>見積金額：</dt>
-		<dd th:text="${es}"></dd>
+		<!--  <dd th:text="${es}"></dd>-->
+		<dd th:if="*{estimatedAmount}==null">&nbsp;</dd>
+		<dd th:unless="*{estimatedAmount}==null" th:text="'￥'+${#numbers.formatInteger(dataRequest.estimatedAmount,1,'COMMA')}"></dd>
+
 
 		<dt>受注金額：</dt>
-		<dd th:text="*{orderAmount}"></dd>
+		<dd th:if="*{orderAmount}==null">&nbsp;</dd>
+		<dd th:unless="*{orderAmount}==null"  th:text="'￥'+${#numbers.formatInteger(dataRequest.orderAmount,1,'COMMA')}"></dd>
 
 		<dt>ステータス：</dt>
 		<!--  <dd th:text="*{statusid}"></dd>-->
@@ -49,9 +60,11 @@
 		</dd>
 
 		<dt>備考：</dt>
-		<dd th:text="*{remark}"></dd>
+		<dd th:if="*{remark}==null">&nbsp;</dd>
+		<dd th:unless="*{remark}==null" th:text="*{remark}"></dd>
 </dl>
-
+<br/>
+<br/>
 
 <input type="hidden" name="nameid" th:field="*{nameid}">
 <input type="hidden" name="orderDate" th:field="*{orderDate}">

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/css/NewFile.css}"/>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-<title>Insert title here</title>
+<title>売上管理システム：案件登録</title>
 </head>
 <body>
-<p>製造部売上管理システム：案件登録</p>
+<h1>製造部売上管理システム：案件登録</h1>
 <form class="item" th:action="@{addCheck}" th:object="${DataRequest}" th:method="post">
 
 <dl>
@@ -35,14 +36,14 @@
 		<dt>納入指定日：</dt>
 		<dd><input type="date" name="deliveryDesignatedDate"></dd>
 
-		<dt>納入日</dt>
+		<dt>納入日:</dt>
 		<dd><input type="date" name="deliveryDate"></dd>
 
-		<dt>請求日</dt>
+		<dt>請求日:</dt>
 		<dd><input type="date" name="billingDate"></dd>
 
 		<dt>見積金額：</dt>
-		  <dd><input type="text" name="estimatedAmount" maxlength="12"></dd>
+		  <dd><input type="number" name="estimatedAmount" maxlength="12"></dd>
 
 		<dt>受注金額：</dt>
 		<dd><input type="text" name="orderAmount" maxlength="12"></dd>
@@ -67,34 +68,35 @@
 <script>
 $(function() {
 
-	// 国名が変更されたら発動
+	// 変更されたら発動
 	$('select[name="nameid"]').change(function() {
 
-		// 選択されている国のクラス名を取得
+		// 選択されてるクラス名を取得
 		var countyName = $('select[name="nameid"] option:selected').attr("class");
 		console.log(countyName);
 
-		// 都市名の要素数を取得
+		// 要素数を取得
 		var count = $('select[name="statusid"]').children().length;
 
-		// 都市名の要素数分、for文で回す
+		// 要素数分、for文で回す
 		for (var i=0; i<count; i++) {
 
 			var statusid = $('select[name="statusid"] option:eq(' + i + ')');
 
 			if(statusid.attr("class") === countyName) {
-				// 選択した国と同じクラス名だった場合
+				// 選択と同じクラス名だった場合
 
-				// 都市の要素を表示
+				// 要素を表示
 				statusid.show();
 			}else {
-				// 選択した国とクラス名が違った場合
+				// 選択とクラス名が違った場合
 
-				// 都市の要素を非表示
+				// 要素を非表示
 				statusid.hide();
 			}
 		}
 	})
+
 })
 </script>
 

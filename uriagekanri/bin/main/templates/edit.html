@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/css/NewFile.css}"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>製造部売上管理システム：案件編集</title>
 </head>
 <body>
-<p>製造部売上管理システム：案件編集</p>
+<h1>製造部売上管理システム：案件編集</h1>
 <form class="item" th:action="@{/{id}/editCheck(id=*{id})}" th:object="${dataRequest}"
 		th:method="post">
 <!-- createe -->

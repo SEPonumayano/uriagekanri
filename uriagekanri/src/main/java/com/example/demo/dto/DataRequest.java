@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -93,7 +92,6 @@ public class DataRequest implements Serializable{
 
 
 	//S番号
-	//@Pattern(regexp="S-[0-9]{4}$" ,message="S番号は「S-4桁の数字」で入力してください")
 	private String sNumber;
 
 	public String getsNumber() {
@@ -167,27 +165,27 @@ public class DataRequest implements Serializable{
 
 
 	//見積金額
-	@Size(max=12,message="最大桁数は12桁です。")
-	private String estimatedAmount;
+	//@Size(max=12,message="最大桁数は12桁です。")
+	private Integer estimatedAmount;
 
-	public String getEstimatedAmount() {
+	public Integer getEstimatedAmount() {
 		return estimatedAmount;
 	}
 
-	public void setEstimatedAmount(String estimatedAmount) {
+	public void setEstimatedAmount(Integer estimatedAmount) {
 		this.estimatedAmount = estimatedAmount;
 	}
 
 
 	//受注金額
-	@Size(max=12,message="最大桁数は12桁です。")
-	private String orderAmount;
+	//@Size(max=12,message="最大桁数は12桁です。")
+	private Integer orderAmount;
 
-	public String getOrderAmount() {
+	public Integer getOrderAmount() {
 		return orderAmount;
 	}
 
-	public void setOrderAmount(String orderAmount) {
+	public void setOrderAmount(Integer orderAmount) {
 		this.orderAmount = orderAmount;
 	}
 

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" th:href="@{/css/NewFile.css}"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>製造部売上管理システム：案件削除</title>
 </head>
 <body>
-<p>下記住所録を削除します。よろしいですか？</p><br/>
+<h1>下記住所録を削除します。よろしいですか？</h1><br/>
 <form class="item" th:action="@{/dataDelete}" th:object="${dataRequest}" th:method="post">
 <input type="hidden" th:field="*{id}">
 <dl>
@@ -13,10 +14,12 @@
 		<dd th:text="${client}"></dd>
 
 		<dt>受注日：</dt>
-		<dd th:text="*{orderDate}"></dd>
+		<dd th:if="*{orderDate}==null">&nbsp;</dd>
+		<dd th:unless="*{orderDate}==null" th:text="*{orderDate}"></dd>
 
 		<dt>S番号：</dt>
-		<dd th:text="*{sNumber}"></dd>
+		<dd th:if="*{sNumber}==null">&nbsp;</dd>
+		<dd th:unless="*{sNumber}==null" th:text="*{sNumber}"></dd>
 
 		<dt>件名*:</dt>
 		<dd th:text="*{subTitle}"></dd>

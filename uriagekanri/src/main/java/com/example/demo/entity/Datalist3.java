@@ -115,24 +115,24 @@ public class Datalist3 implements Serializable{
 	}
 
 	//見積金額
-	private String estimatedAmount;
+	private Integer estimatedAmount;
 
-	public String getEstimatedAmount() {
+	public Integer getEstimatedAmount() {
 		return estimatedAmount;
 	}
 
-	public void setEstimatedAmount(String estimatedAmount) {
+	public void setEstimatedAmount(Integer estimatedAmount) {
 		this.estimatedAmount = estimatedAmount;
 	}
 
 	//受注金額
-	private String order_amount;
+	private Integer order_amount;
 
-	public String getOrder_amount() {
+	public Integer getOrder_amount() {
 		return order_amount;
 	}
 
-	public void setOrder_amount(String order_amount) {
+	public void setOrder_amount(Integer order_amount) {
 		this.order_amount = order_amount;
 	}
 

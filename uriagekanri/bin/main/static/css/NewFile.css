@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+body{
+    width:1100px;
+}
+
+h1{
+	font-size:20px;
+	font-weight: normal;
+}
+
+.item{
+	padding:10px 50px;
+}
+
+.item dl dt{
+	width:150px;
+	/* padding:10px 0; */
+	float:left;
+	/* clear:both; */
+}
+
+.item dl dd{
+	/* padding:10px 0; */
+}
+
+.menu{
+	display:flex;
+	justify-content:space-between;
+}
+
+.seachname{
+	display:table-cell;
+	flex-direction: column;
+	align-items: center;
+	float: left;
+}
+
+.seachna li{
+	list-style: none;
+}
+
+.seachsubTitle li{
+	list-style: none;
+
+}
+
+
+.clientSt li{
+	list-style: none;
+	float: left;
+}
+
+.statusSt li{
+	list-style: none;
+	float: left;
+}
+
+.serch{
+	display:table-cell;
+	flex-direction: column;
+	align-items: center;
+	float: left;
+}
+
+.sarch{
+	display:table-cell;
+	flex-direction: column;
+	align-items: center;
+	float: left;
+}
+
+.searchs{
+	display:table;
+}
+
+
+
+th,tb{
+	border: solid 1px;
+	align:center;
+}
+
+table{
+	border-collapse: collapse;
+	empty-cells:hide;
+	table-layout:fixed;
+
+}

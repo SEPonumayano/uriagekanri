@@ -130,25 +130,25 @@ public class Data implements Serializable{
 
 	//見積金額
 	@Column(name = "estimated_amount")
-	private String estimatedAmount;
+	private Integer estimatedAmount;
 
-	public String getEstimatedAmount() {
+	public Integer getEstimatedAmount() {
 		return estimatedAmount;
 	}
 
-	public void setEstimatedAmount(String estimatedAmount) {
+	public void setEstimatedAmount(Integer estimatedAmount) {
 		this.estimatedAmount = estimatedAmount;
 	}
 
 	//受注金額
 	@Column(name = "order_amount")
-	private String orderAmount;
+	private Integer orderAmount;
 
-	public String getOrderAmount() {
+	public Integer getOrderAmount() {
 		return orderAmount;
 	}
 
-	public void setOrderAmount(String orderAmount) {
+	public void setOrderAmount(Integer orderAmount) {
 		this.orderAmount = orderAmount;
 	}
 

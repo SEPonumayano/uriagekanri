@@ -4,29 +4,36 @@
 <link rel="stylesheet" th:href="@{/css/NewFile.css}"/>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-<title>一覧</title>
+<title>製造部売上管理システム：案件一覧</title>
 </head>
 <body>
-<p>製造部売上管理システム：案件一覧</p>
+<h1>製造部売上管理システム：案件一覧</h1>
 <!-- 登録ボタン -->
 	<div class="menu">
 	<div class="add">
 		<a th:href="@{/add}"><button type="button" style="width:200px">新規登録</button></a>
 	</div>
 		<!-- 住所検索 -->
-	<div class="serch">
-	<!--  <form class="seach" th:action="@{/{key}/{nameidkw}/{statusidkw}/list(key=keyword,nameidkw=nameidkw,statusidkw=statusidkw)}" th:object="${DataRequest}" th:method="post">-->
+	<div class="searchs">
 	<form class="seach" th:action="@{/seachlist}" th:object="${DataRequest}" th:method="post">
-	<div class="clientSt">顧客名：</div>
-	<select name="nameidkw" >
+	<div class="seachname">
+	<ul class="seachna">
+	<li>検索</li>
+	</ul>
+	</div>
+	<div class="serch">
+	<ul class="clientSt">
+	<li >顧客名：</li>
+	<li><select name="nameidkw" >
 		<option th:value="0"></option>
 		<!-- <option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}">
 		</option> -->
 		<option th:each="clientname: ${clientdd}" th:class="${clientname.nameid}" th:value="${clientname.nameid}" th:text="${clientname.client}" th:selected="${clientname.nameid==nameidkw}">
 		</option>
-		</select>
-	<div class="statusSt">ステータス：</div>
-	<select name="statusidkw">
+		</select></li></ul>
+	<ul class="statusSt">
+	<li>ステータス：</li>
+	<li><select name="statusidkw">
 		<option th:value="99"></option>
 		<option th:each="ste1: ${ste1}" th:class="1" th:value="${ste1.statusid}" th:text="${ste1.stname}" th:selected="${ste1.statusid==statusidkw}">
 		</option>
@@ -34,14 +41,23 @@
 		</option>
 		<option th:each="ste3: ${ste3}" th:class="3" th:value="${ste3.statusid}" th:text="${ste3.stname}">
 		</option>
-		</select>
-	<div class="seachsubTitle">件名：</div>
-	<div class="seachsubTitle"><input class="seachword" type="text" name="keyword" th:value="${keyword}" style="width:200px">
-	<input class="sss" type=submit value="検索" style="width:204px">
+		</select></li>
+		</ul>
+		</div>
+	<div class="sarch">
+	<ul class="seachsubTitle">
+	<li>件名：<input class="seachword" type="text" name="keyword" th:value="${keyword}" style="width:200px"></li>
+	<li style="float:right;"><input class="sss" type=submit value="検索" style="width:204px">
+	</li>
+	</ul>
 	</div>
 	</form>
-	</div><!-- selected="selected" -->
 	</div>
+	</div><!-- <div class="seachsubTitle">件名：</div>
+	<div class="seachsubTitle"><input class="seachword" type="text" name="keyword" th:value="${keyword}" style="width:200px">
+	<input class="sss" type=submit value="検索" style="width:204px">
+	</div>-->
+
 <br/>
 <script>
 $(function() {
@@ -76,7 +92,6 @@ $(function() {
 	})
 })
 </script>
-<br/>
 <!-- ページング -->
 
 	<div th:fragment='paginationbar'>
@@ -105,10 +120,8 @@ $(function() {
     </li>
 	</ul></div>
 
-<!--<p th:text="'今の顧客番号は'+${nameidkw}"></p>
-<p th:text="'今のステータス番号は'+${statusidkw}"></p>-->
 <table border="1">
-<tr>
+<tr bgcolor="#8490c8">
 <th>No</th>
 <th>顧客名</th>
 <th>受注日</th>
@@ -128,12 +141,11 @@ $(function() {
 <td th:text="${datalist.orderdate}"></td>
 <td th:text="${datalist.snumber}"></td>
 <td th:text="${datalist.subtitle}"></td>
-<!--  <td th:text="${datalist.items}+'式'"></td>-->
-<td th:if="${datalist.items}!=null" th:text="${#numbers.formatInteger(datalist.items,1,'COMMA')}+'式'"></td>
-<td th:unless="${datalist.items}!=null"></td>
+<td th:if="${datalist.items}!=0" th:text="${#numbers.formatInteger(datalist.items,1,'COMMA')}+'式'"></td>
+<td th:unless="${datalist.items}!=0"></td>
 <td th:text="${datalist.deliveryDesignatedDate}+'/'+${datalist.deliveryDate}"></td>
 <td th:text="${datalist.billingDate}"></td>
-<td th:text="${datalist.estimatedAmount}+'/'+${datalist.order_amount}"></td>
+<td th:text="'￥'+${#numbers.formatInteger(datalist.estimatedAmount,1,'COMMA')}+'/￥'+${#numbers.formatInteger(datalist.order_amount,1,'COMMA')}"></td>
 <td th:text="${datalist.stname}"></td>
 <td>
 <form th:action="@{/{id}/edit(id=${datalist.id})}" th:method="post">

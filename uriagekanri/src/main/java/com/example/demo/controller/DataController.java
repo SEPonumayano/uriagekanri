@@ -37,19 +37,6 @@ import com.example.demo.service.DataService;
 
 
 @Controller
-//@SessionAttributes("keyword")
-
-//Specification用
-	/*private interface Specification<Datalist3> nameContains(int nameidkw){
-		return new Specification<Datalist3>() {
-			@Override
-			public Predicate toPredicate(Root<DataList3> root,CriteriaQuery<?> query,CriteriaBuilder cb) {
-				return cb.like(root.get("nameid"),"%"+nameidkw+"%");
-			}
-		};
-
-	}*/
-
 public class DataController {
 	@Autowired
 	DataService dataService;
@@ -73,7 +60,6 @@ public class DataController {
 
 
 		//一覧
-		//Page<Listdata> listde;getfindAlldataA(pageable);
 		Page<Datalist3> listdate;
 
 		//全部Null
@@ -94,7 +80,6 @@ public class DataController {
 		}
 		else {
 			listdate =dataService.getTestlist(pageable);
-			//listdate =dataService.getSearchlist(dataRequest,pageable);
 		}
 
 
@@ -127,7 +112,6 @@ public class DataController {
 	}
 
 	//住所検索
-	//@RequestMapping(value ="/{keyword}/{nameidkw}/{statusidkw}/list" ,method = RequestMethod.POST)
 	@RequestMapping(value ="/seachlist" ,method = RequestMethod.POST)
 		public String search(@ModelAttribute DataRequest dataRequest,BindingResult result, Model model,@PageableDefault(size=10)Pageable pageable ) {
 
@@ -158,7 +142,6 @@ public class DataController {
 			}
 			else {
 				listdate =dataService.getTestlist(pageable);
-				//listdate =dataService.getSearchlist(dataRequest,pageable);
 			}
 
 
@@ -207,35 +190,6 @@ public class DataController {
 
 		return "/add";
 
-	}
-
-	//登録エラー出力 (使ってない)
-	@RequestMapping(value="/create",method=RequestMethod.POST)
-	public String create(@Validated@ModelAttribute DataRequest dataRequest,BindingResult result,Model model) {
-
-		if (result.hasErrors()) {
-			List<String> errorList = new ArrayList<String>();
-			for (ObjectError error : result.getAllErrors()) {
-				errorList.add(error.getDefaultMessage());
-			}
-			//顧客選択
-			List<Clientname> clientdd =dataService.getclientselect();
-
-			//ステータス
-			List<Client1Ste> ste1 =dataService.getclientSte1();
-			List<Client2Ste> ste2 =dataService.getclientSte2();
-			List<Client3Ste> ste3 =dataService.getclientSte3();
-
-			model.addAttribute("clientdd",clientdd);
-			model.addAttribute("ste1",ste1);
-			model.addAttribute("ste2",ste2);
-			model.addAttribute("ste3",ste3);
-			model.addAttribute("validationError", errorList);
-			return "/add";
-		}
-
-		// dataService.create(dataRequest); 使ってない
-		return "/addcheck";
 	}
 
 	//登録確認ページ
@@ -348,26 +302,6 @@ public class DataController {
 			model.addAttribute("ste3",ste3);
 
 			return "/edit";
-		}
-
-	//編集エラー出力(ここ使ってない)
-	@RequestMapping(value="/{id}/createe",method=RequestMethod.POST)
-	public String createe(@ModelAttribute DataRequest dataRequest,BindingResult result,@PathVariable int id,Model model) {
-
-			if(result.hasErrors()) {
-				List<String>errorList=new ArrayList<String>();
-				for(ObjectError error:result.getAllErrors()) {
-					errorList.add(error.getDefaultMessage());
-				}
-
-			model.addAttribute("validationError",errorList);
-				return "/edit";
-			}
-			//dataService.createe(dataRequest);
-
-			model.addAttribute("dataRequest",dataRequest);
-
-			return "/editCheck";
 		}
 
 	//編集確認ページ
